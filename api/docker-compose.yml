@@ -7,6 +7,13 @@ volumes:
 
 services:
 
+### Composer ##############################################
+    composer:
+      image: composer:latest
+      volumes:
+      - .:/app
+      command: 'true'
+
 ### PHP-FPM ##############################################
     php-fpm:
       build:
@@ -30,35 +37,30 @@ services:
         - php-fpm
 
 #### MySQL ################################################
-#    mysql:
-#      build:
-#        context: ./mysql
-#        args:
-#          - MYSQL_VERSION=${MYSQL_VERSION}
-#      environment:
-#        - MYSQL_DATABASE=${MYSQL_DATABASE}
-#        - MYSQL_USER=${MYSQL_USER}
-#        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-#        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-#        - TZ=${WORKSPACE_TIMEZONE}
-#      volumes:
-#        - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
-#        - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
-#      ports:
-#        - "${MYSQL_PORT}:3306"
-#      networks:
-#        - backend
-#
+    mysql:
+      build:
+        context: ./docker/mysql
+        args:
+          - MYSQL_VERSION=latest
+      environment:
+        - MYSQL_DATABASE=notes
+        - MYSQL_USER=notes
+        - MYSQL_PASSWORD=asf9#89hf9384h
+        - MYSQL_ROOT_PASSWORD=@rf34f34@#F34f34
+      volumes:
+        - ./docker/data/mysql:/var/lib/mysql
+        - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      ports:
+        - "3306:3306"
+
 #### MongoDB ##############################################
-#    mongo:
-#      build: ./mongo
-#      ports:
-#        - "${MONGODB_PORT}:27017"
-#      volumes:
-#        - ${DATA_PATH_HOST}/mongo:/data/db
-#      networks:
-#        - backend
-#
+    mongo:
+      build: ./docker/mongo
+      ports:
+        - "27017:27017"
+      volumes:
+        - /docker/data/mongo:/data/db
+
 #### phpMyAdmin ###########################################
 #    phpmyadmin:
 #      build: ./phpmyadmin
