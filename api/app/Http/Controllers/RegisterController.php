@@ -29,9 +29,7 @@ class RegisterController {
             } else {
                 throw new Exception("There is some problem");
             } 
-//            else {
-//                $user->save();
-//            }
+            $user->save();
         } catch (InvalidDataException $e) {
 //            return response()->json([
 //                'error' => 400,
