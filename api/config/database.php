@@ -41,12 +41,12 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'mysql'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'notes'),
-            'username' => env('DB_USERNAME', 'notes'),
-            'password' => env('DB_PASSWORD', 'asf9#89hf9384h'),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'host' => env('DB_HOST'),
+            'port' => env('DB_PORT'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'unix_socket' => env('DB_SOCKET'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
