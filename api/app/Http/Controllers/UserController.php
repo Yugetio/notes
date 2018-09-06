@@ -34,7 +34,7 @@ class UserController
                 throw new InvalidDataException("Email doesn`t consist of @", 1);
             } elseif (preg_match("/[а-яА-ЯёЁ]/", $user->email)) {
                throw new InvalidDataException("Email consists of kirillica", 1);
-            } elseif (DB::table('users')->where('email', $user->email)->exists()) {
+            } elseif ($user->DB->where('email', $user->email)->exists()) {
                 throw new UserAlreadyExistException("User already exists ", 1);
             } elseif (!$user->getConnection()->getDatabaseName()) {
                 throw new DataBaseConnectionException("Bad connection with DB ", 1);                
@@ -51,22 +51,33 @@ class UserController
             $response->SendResponse(500, $e);
         }
         $user->save();
-        return $response->SendResponse(200, 'User is created');
+        return $response->SendResponse(200, 'User has created');
     }
 
     public function updateUser($id)
     {
-        $user = new MyUser();
-        $user->DB::where('id', '=', $id);
-        $user->update(Input::all());
-        $user->save();
-
+        try {
+            $response = new SendResponse();
+            $user = new MyUser();
+            $user->DB::where('id', '=', $id);
+            $user->update(Input::all());
+            $user->save();
+        } catch (Exception $e){
+            $response->SendResponse(500, $e);
+        }
         return Redirect::to('/account');
     }
 
-
-    public function deleteUser(Request $request)
+    public function deleteUser($id)
     {
-
+        try {
+            $response = new SendResponse();
+            $user = new MyUser();
+            $user->DB::where('id', '=', $id);
+            $user->delete();
+        } catch (Exception $e) {
+            $response->SendResponse(500, $e);
+        }
+        return Redirect::to('/register');
     }
 }

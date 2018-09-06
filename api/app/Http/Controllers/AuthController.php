@@ -24,7 +24,7 @@ class AuthController
                 ->where('password', '=', $user->password)
                 ->exists()){
                 throw new UserNotRegisterException('User isn`t registered');
-            } elseif (!DB::connection()->getDatabaseName()) {
+            } elseif (!$user->getConnection()->getDatabaseName()) {
                 throw new DataBaseConnectionException("Bad connection with DB ", 1);
             } else {
                 throw new Exception("There is some problem");
