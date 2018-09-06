@@ -37,6 +37,6 @@ class AuthController
         catch (Exception $e) {
             $response->SendResponse(500, $e);
         }
-        $response->SendResponse(200, 'Auth ok');
+        return $response->SendResponse(200, 'Auth ok');
     }
 }

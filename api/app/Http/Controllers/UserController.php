@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Connection;
 
 use \Exception;
 use \App\Http\MyExceptions\InvalidDataException;
@@ -11,9 +13,11 @@ use \App\Http\MyExceptions\UserAlreadyExistException;
 use \App\Http\MyExceptions\DataBaseConnectionException;
 
 use \App\Models\MyUser;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 
-class RegisterController
+class UserController
 {
     public function createUser(Request $request)
     {
@@ -32,7 +36,7 @@ class RegisterController
                throw new InvalidDataException("Email consists of kirillica", 1);
             } elseif (DB::table('users')->where('email', $user->email)->exists()) {
                 throw new UserAlreadyExistException("User already exists ", 1);
-            } elseif (!DB::connection()->getDatabaseName()) {
+            } elseif (!$user->getConnection()->getDatabaseName()) {
                 throw new DataBaseConnectionException("Bad connection with DB ", 1);                
             } else {
                 throw new Exception("There is some problem");
@@ -47,5 +51,22 @@ class RegisterController
             $response->SendResponse(500, $e);
         }
         $user->save();
+        return $response->SendResponse(200, 'User is created');
+    }
+
+    public function updateUser($id)
+    {
+        $user = new MyUser();
+        $user->DB::where('id', '=', $id);
+        $user->update(Input::all());
+        $user->save();
+
+        return Redirect::to('/account');
+    }
+
+
+    public function deleteUser(Request $request)
+    {
+
     }
 }
