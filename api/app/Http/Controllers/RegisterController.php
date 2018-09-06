@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use \Exception;
+use \App\Http\MyExceptions\InvalidDataException;
+use \App\Http\MyExceptions\UserAlreadyExistException;
+use \App\Http\MyExceptions\DataBaseConnectionException;
+
 use \App\Models\MyUser;
 
-class RegisterController {
-    
+
+class RegisterController
+{
     public function createUser(Request $request)
     {
         try {
+            $response = new SendResponse();
             $user = new MyUser();
             $user->email = $request->input('email');
             $user->password = $request->input('password');
@@ -22,33 +30,22 @@ class RegisterController {
                 throw new InvalidDataException("Email doesn`t consist of @", 1);
             } elseif (preg_match("/[а-яА-ЯёЁ]/", $user->email)) {
                throw new InvalidDataException("Email consists of kirillica", 1);
-            } elseif (User::where('email', $user->email->exists())) {
+            } elseif (DB::table('users')->where('email', $user->email)->exists()) {
                 throw new UserAlreadyExistException("User already exists ", 1);
             } elseif (!DB::connection()->getDatabaseName()) {
                 throw new DataBaseConnectionException("Bad connection with DB ", 1);                
             } else {
                 throw new Exception("There is some problem");
-            } 
-            $user->save();
+            }
         } catch (InvalidDataException $e) {
-//            return response()->json([
-//                'error' => 400,
-//                'message' => $e
-//            ]);
-              $this->SendResponse(400, $e);
+            $response->SendResponse(400, $e);
         } catch (UserAlreadyExistException $e) {
-            $this->SendResponse(423, $e);
+            $response->SendResponse(423, $e);
         } catch (DataBaseConnectionException $e) {
-            $this->SendResponse(523, $e);
+            $response->SendResponse(523, $e);
         } catch (Exception $e) {
-            $this->SendResponse(500, $e);
-        }    
-    }
-    
-    public function SendResponse($code, $exception) {
-        return response()->json([
-                'error' => $code,
-                'message' => $exception,
-            ]);
+            $response->SendResponse(500, $e);
+        }
+        $user->save();
     }
 }
