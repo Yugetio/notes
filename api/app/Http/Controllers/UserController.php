@@ -54,27 +54,36 @@ class UserController
         return $response->SendResponse(200, 'User has created');
     }
 
-    public function updateUser($id)
+    public function updateUser(Request $request)
     {
         try {
             $response = new SendResponse();
             $user = new MyUser();
-            $user->DB::where('id', '=', $id);
-            $user->update(Input::all());
-            $user->save();
+            $id = $request->input('id');
+            if ($user->DB->where('id', '=', $id)) {
+                $user->update(Input::all());
+                $user->save();
+            } else {
+                throw new Exception("There isn`t user with this id");
+            }
         } catch (Exception $e) {
             $response->SendResponse(500, $e);
         }
         return $response->SendResponse(200, 'User has updated'); //Redirect::to('/account');
     }
 
-    public function deleteUser($id)
+    public function deleteUser(Request $request)
     {
         try {
             $response = new SendResponse();
             $user = new MyUser();
-            $user->DB::where('id', '=', $id);
-            $user->delete();
+            $id = $request->input('id');
+            if ($user->where('id', '=', $id)) {
+                $user->delete();
+            } else {
+                throw new Exception("There isn`t user with this id");
+            }
+
         } catch (Exception $e) {
             $response->SendResponse(500, $e);
         }
