@@ -72,13 +72,14 @@ class UserController
         return $response->SendResponse(200, 'User has updated'); //Redirect::to('/account');
     }
 
+
     public function deleteUser(Request $request)
     {
         try {
             $response = new SendResponse();
-            $user = new MyUser();
+            //$user = new MyUser();
             $id = $request->input('id');
-            if ($user->where('id', '=', $id)) {
+            if ($user= MyUser::where('id', '=', $id)) {
                 $user->delete();
             } else {
                 throw new Exception("There isn`t user with this id");

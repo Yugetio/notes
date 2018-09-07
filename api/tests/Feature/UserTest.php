@@ -36,7 +36,8 @@ class UserTest extends TestCase
         $user = new MyUser();
         $request = Request::create('/deleteUser', 'GET', ['code' => 200]);
         //$user = json_decode($userController->deleteUser($request), true);
-        var_dump(json_decode($userController->deleteUser($request)));
+        //$user2 = json_decode('{"code":200,"b":2}', true);
+        var_dump($request);
         //$this->assertEquals(200, $user->{'code'});
     }
 }
