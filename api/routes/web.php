@@ -11,6 +11,9 @@
 |
 */
 
+
+use Illuminate\Support\Facades\Route;
+
 Route::post('/register', 'RegisterController@createUser');
 
 Route::post('/auth', 'AuthController@authUser');

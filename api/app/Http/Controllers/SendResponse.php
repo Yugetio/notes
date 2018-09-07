@@ -7,7 +7,7 @@ class SendResponse
 {
     function SendResponse($code, $exception) {
         return response()->json([
-            'error' => $code,
+            'code' => $code,
             'message' => $exception,
         ]);
     }

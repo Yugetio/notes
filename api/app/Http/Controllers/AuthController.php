@@ -19,7 +19,7 @@ class AuthController
             $user = new MyUser();
             $user->email = $request->input('email');
             $user->password = $request->input('password');
-            if (!DB::table('users')
+            if (!$user->DB
                 ->where('email', '=', $user->email)
                 ->where('password', '=', $user->password)
                 ->exists()){

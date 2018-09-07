@@ -62,10 +62,10 @@ class UserController
             $user->DB::where('id', '=', $id);
             $user->update(Input::all());
             $user->save();
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $response->SendResponse(500, $e);
         }
-        return Redirect::to('/account');
+        return $response->SendResponse(200, 'User has updated'); //Redirect::to('/account');
     }
 
     public function deleteUser($id)
@@ -78,6 +78,6 @@ class UserController
         } catch (Exception $e) {
             $response->SendResponse(500, $e);
         }
-        return Redirect::to('/register');
+        return $response->SendResponse(200, 'User has deleted'); //Redirect::to('/register');
     }
 }
