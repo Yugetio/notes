@@ -41,6 +41,7 @@ class UserController
             } else {
                 throw new Exception("There is some problem");
             }
+            //$user->save();
         } catch (InvalidDataException $e) {
             $response->SendResponse(400, $e);
         } catch (UserAlreadyExistException $e) {
@@ -59,9 +60,9 @@ class UserController
         try {
             $response = new SendResponse();
             $user = new MyUser();
-            $id = $request->input('id');
-            if ($user->where('id', '=', $id)) {
-                $user->update(Input::all());
+            //$id = $request->input('id');
+            if ($user = $user->find($id = $request->input('id'))) {
+                $user->update($request->all());
                 $user->save();
             } else {
                 throw new Exception("There isn`t user with this id");
@@ -79,13 +80,12 @@ class UserController
         try {
             $response = new SendResponse();
             $user = new MyUser();
-            $id = $request->input('id');
-            if ($user->where('id', '=', $id)) {
+            //$id = $request->input('id');
+            if ($user = $user->find($request->input('id'))) {
                 $user->delete();
             } else {
                 throw new Exception("There isn`t user with this id");
             }
-
         } catch (Exception $e) {
             $response->SendResponse(500, $e);
         }

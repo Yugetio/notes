@@ -18,22 +18,32 @@ class UserTest extends TestCase
      *
      * @return void
      */
-//    public function testCreate()
-//    {
-//        $userController = new UserController();
-//        $request = Request::create('/createUser', 'GET', ['email' => 'test1@mail.com', 'password' => 'test123']);
-//        $user = json_decode($userController->createUser($request), true);
-//        var_dump($user);
-//        $this->assertEquals(200, $user->{'code'});
-//
-//    }
-
-    public function testDelete()
+    public function testCreate()
     {
         $userController = new UserController();
-        $request = Request::create('/deleteUser', 'GET', ['id' => 10]);
-        $user = json_decode($userController->deleteUser($request), true);
+        $request = Request::create('/register', 'GET', ['email' => 'test2@mail.com', 'password' => 'test']);
+        $user = json_decode($userController->createUser($request), true);
         var_dump($user);
         //$this->assertEquals(200, $user->{'code'});
+
     }
+//        public function testUpdate()
+//    {
+//        $userController = new UserController();
+//        $request = Request::create('/update', 'GET', ['email' => 'testoiupdate@mail.com', 'password' => 'test321', 'id' => 17]);
+//        $user = json_decode($userController->updateUser($request), true);
+//        var_dump($user);
+//        //$this->assertEquals(200, $user->{'code'});
+//    }
+
+//    public function testDelete()
+//    {
+//        $userController = new UserController();
+//        $request = Request::create('/delete', 'GET', ['id' => 12]);
+//        $user = json_decode($userController->deleteUser($request), true);
+//        var_dump($user);
+//        //$this->assertEquals(200, $user->{'code'});
+//    }
 }
+
+//FOR START TESTS USE --- vendor/bin/phpunit !!!

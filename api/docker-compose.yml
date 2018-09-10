@@ -63,21 +63,23 @@ services:
         - /docker/data/mongo:/data/db
 
 #### phpMyAdmin ###########################################
-#    phpmyadmin:
-#      build: ./phpmyadmin
-#      environment:
-#        - PMA_ARBITRARY=1
-#        - MYSQL_USER=${PMA_USER}
-#        - MYSQL_PASSWORD=${PMA_PASSWORD}
-#        - MYSQL_ROOT_PASSWORD=${PMA_ROOT_PASSWORD}
-#      ports:
-#        - "${PMA_PORT}:80"
+    phpmyadmin:
+      build: ./docker/phpmyadmin
+      environment:
+        - PMA_ARBITRARY=1
+#        - MYSQL_USER=${DB_USERNAME}
+#        - MYSQL_PASSWORD=${DB_PASSWORD}
+#        - MYSQL_ROOT_PASSWORD=@rf34f34@#F34f34
+        - PMA_HOST=mysql
+        - PMA_PORT=DB_PORT
+      ports:
+        - 8181:80
 #      depends_on:
-#        - "${PMA_DB_ENGINE}"
+#        - mysql
 #      networks:
 #        - frontend
 #        - backend
-#
+
 #### MongoWebUI ################################################
 #    mongo-webui:
 #      build:
