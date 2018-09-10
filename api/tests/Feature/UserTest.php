@@ -21,11 +21,9 @@ class UserTest extends TestCase
 //    public function testCreate()
 //    {
 //        $userController = new UserController();
-//        //$user = new MyUser();
-//        //$user->DB->where('email', 'test2@mail.com')->delete();
 //        $request = Request::create('/createUser', 'GET', ['email' => 'test1@mail.com', 'password' => 'test123']);
-//        $userController->createUser($request);
-//        $user = json_decode($userController, true);
+//        $user = json_decode($userController->createUser($request), true);
+//        var_dump($user);
 //        $this->assertEquals(200, $user->{'code'});
 //
 //    }
@@ -33,11 +31,9 @@ class UserTest extends TestCase
     public function testDelete()
     {
         $userController = new UserController();
-        $user = new MyUser();
-        $request = Request::create('/deleteUser', 'GET', ['code' => 200]);
-        //$user = json_decode($userController->deleteUser($request), true);
-        //$user2 = json_decode('{"code":200,"b":2}', true);
-        var_dump($request);
+        $request = Request::create('/deleteUser', 'GET', ['id' => 10]);
+        $user = json_decode($userController->deleteUser($request), true);
+        var_dump($user);
         //$this->assertEquals(200, $user->{'code'});
     }
 }

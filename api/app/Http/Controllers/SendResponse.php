@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 
 class SendResponse
 {
-    function SendResponse($code, $exception) {
+    function SendResponse($code, $message) {
         return response()->json([
             'code' => $code,
-            'message' => $exception,
+            'message' => $message,
         ]);
     }
 }

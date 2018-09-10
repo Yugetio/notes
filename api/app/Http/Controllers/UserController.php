@@ -60,7 +60,7 @@ class UserController
             $response = new SendResponse();
             $user = new MyUser();
             $id = $request->input('id');
-            if ($user->DB->where('id', '=', $id)) {
+            if ($user->where('id', '=', $id)) {
                 $user->update(Input::all());
                 $user->save();
             } else {
@@ -69,7 +69,8 @@ class UserController
         } catch (Exception $e) {
             $response->SendResponse(500, $e);
         }
-        return $response->SendResponse(200, 'User has updated'); //Redirect::to('/account');
+        return $response->SendResponse(200, 'User has updated');
+        //Redirect::to('/account');
     }
 
 
@@ -77,9 +78,9 @@ class UserController
     {
         try {
             $response = new SendResponse();
-            //$user = new MyUser();
+            $user = new MyUser();
             $id = $request->input('id');
-            if ($user= MyUser::where('id', '=', $id)) {
+            if ($user->where('id', '=', $id)) {
                 $user->delete();
             } else {
                 throw new Exception("There isn`t user with this id");
@@ -88,6 +89,7 @@ class UserController
         } catch (Exception $e) {
             $response->SendResponse(500, $e);
         }
-        return $response->SendResponse(200, 'User has deleted'); //Redirect::to('/register');
+        return $response->SendResponse(200, 'User has deleted');
+        //Redirect::to('/register');
     }
 }
