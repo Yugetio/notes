@@ -2382,3 +2382,23 @@
 #27 /var/www/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #28 {main}
 "} 
+[2018-09-10 13:39:51] local.ERROR: Allowed memory size of 268435456 bytes exhausted (tried to allocate 4335288320 bytes) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Allowed memory size of 268435456 bytes exhausted (tried to allocate 4335288320 bytes) at /var/www/tests/Feature/UserTest.php:24)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(137): Symfony\\Component\\Debug\\Exception\\FatalErrorException->__construct('???', '???', '???', '???', '???', '???', '???', '???', '???')
+#1 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->fatalExceptionFromError('???', '???')
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(0): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleShutdown()
+#3 /var/www/tests/Feature/UserTest.php(24): var_dump('???')
+#4 /var/www/vendor/phpunit/phpunit/src/Framework/TestCase.php(1150): Tests\\Feature\\UserTest->testCreate()
+#5 /var/www/vendor/phpunit/phpunit/src/Framework/TestCase.php(844): Tests\\Feature\\UserTest->runTest()
+#6 /var/www/vendor/phpunit/phpunit/src/Framework/TestResult.php(665): Tests\\Feature\\UserTest->runBare()
+#7 /var/www/vendor/phpunit/phpunit/src/Framework/TestCase.php(798): PHPUnit\\Framework\\TestResult->run('???')
+#8 /var/www/vendor/phpunit/phpunit/src/Framework/TestSuite.php(750): Tests\\Feature\\UserTest->run('???')
+#9 /var/www/vendor/phpunit/phpunit/src/Framework/TestSuite.php(750): PHPUnit\\Framework\\TestSuite->run('???')
+#10 /var/www/vendor/phpunit/phpunit/src/Framework/TestSuite.php(750): PHPUnit\\Framework\\TestSuite->run('???')
+#11 /var/www/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(587): PHPUnit\\Framework\\TestSuite->run('???')
+#12 /var/www/vendor/phpunit/phpunit/src/TextUI/Command.php(203): PHPUnit\\TextUI\\TestRunner->doRun('???', '???', '???')
+#13 /var/www/vendor/phpunit/phpunit/src/TextUI/Command.php(159): PHPUnit\\TextUI\\Command->run('???', '???')
+#14 /var/www/vendor/phpunit/phpunit/phpunit(53): PHPUnit\\TextUI\\Command::main('???')
+#15 /var/www/vendor/phpunit/phpunit/phpunit(0): {main}()
+#16 {main}
+"} 

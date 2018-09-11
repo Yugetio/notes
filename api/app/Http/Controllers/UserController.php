@@ -30,29 +30,30 @@ class UserController
                 throw new InvalidDataException("Email or password are too long", 1);
             } elseif (strlen($user->email) < 5 or strlen($user->password) < 5) {
                 throw new InvalidDataException("Email or password are too short", 1);
-            } elseif(!strpos('@',$user->email)){
+            } elseif(!strpos($user->email,'@')){
                 throw new InvalidDataException("Email doesn`t consist of @", 1);
             } elseif (preg_match("/[а-яА-ЯёЁ]/", $user->email)) {
                throw new InvalidDataException("Email consists of kirillica", 1);
-            } elseif ($user->DB->where('email', $user->email)->exists()) {
+            } elseif ($user->where('email', $user->email)->exists()) {
                 throw new UserAlreadyExistException("User already exists ", 1);
             } elseif (!$user->getConnection()->getDatabaseName()) {
                 throw new DataBaseConnectionException("Bad connection with DB ", 1);                
             } else {
-                throw new Exception("There is some problem");
+                $user->save();
+                return $response->SendResponse(201, 'User has created');
             }
-            //$user->save();
+
         } catch (InvalidDataException $e) {
-            $response->SendResponse(400, $e);
+            return $response->SendResponse(400, $e);
         } catch (UserAlreadyExistException $e) {
-            $response->SendResponse(423, $e);
+            return $response->SendResponse(423, $e);
         } catch (DataBaseConnectionException $e) {
-            $response->SendResponse(523, $e);
+            return $response->SendResponse(523, $e);
         } catch (Exception $e) {
-            $response->SendResponse(500, $e);
+            return $response->SendResponse(500, $e);
         }
-        $user->save();
-        return $response->SendResponse(200, 'User has created');
+        //$user->save();
+        //return $response->SendResponse(201, 'User has created');
     }
 
     public function updateUser(Request $request)
@@ -60,17 +61,16 @@ class UserController
         try {
             $response = new SendResponse();
             $user = new MyUser();
-            //$id = $request->input('id');
-            if ($user = $user->find($id = $request->input('id'))) {
+            if ($user = $user->find($request->input('id'))) {
                 $user->update($request->all());
                 $user->save();
+                return $response->SendResponse(200, 'User has updated');
             } else {
                 throw new Exception("There isn`t user with this id");
             }
         } catch (Exception $e) {
-            $response->SendResponse(500, $e);
+            return $response->SendResponse(500, $e);
         }
-        return $response->SendResponse(200, 'User has updated');
         //Redirect::to('/account');
     }
 
@@ -83,13 +83,13 @@ class UserController
             //$id = $request->input('id');
             if ($user = $user->find($request->input('id'))) {
                 $user->delete();
+                return $response->SendResponse(200, 'User has deleted');
             } else {
                 throw new Exception("There isn`t user with this id");
             }
         } catch (Exception $e) {
-            $response->SendResponse(500, $e);
+            return $response->SendResponse(500, $e);
         }
-        return $response->SendResponse(200, 'User has deleted');
         //Redirect::to('/register');
     }
 }

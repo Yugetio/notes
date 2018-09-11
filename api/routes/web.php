@@ -15,7 +15,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', 'UserController@createUser');
-Route::post('/update', 'UserController@updateUser');
-Route::post('/delete', 'UserController@deleteUser');
+Route::put('/update', 'UserController@updateUser');
+Route::delete('/delete', 'UserController@deleteUser');
 
 Route::post('/auth', 'AuthController@authUser');
