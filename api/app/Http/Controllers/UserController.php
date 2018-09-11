@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Connection;
 
 use \Exception;
 use \App\Http\MyExceptions\InvalidDataException;
@@ -13,8 +10,6 @@ use \App\Http\MyExceptions\UserAlreadyExistException;
 use \App\Http\MyExceptions\DataBaseConnectionException;
 
 use \App\Models\MyUser;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
 
 
 class UserController
@@ -22,7 +17,7 @@ class UserController
     public function createUser(Request $request)
     {
         try {
-            $response = new SendResponse();
+            $response = new ResponsesForFront();
             $user = new MyUser();
             $user->email = $request->input('email');
             $user->password = $request->input('password');
@@ -56,12 +51,13 @@ class UserController
         //return $response->SendResponse(201, 'User has created');
     }
 
+
     public function updateUser(Request $request)
     {
         try {
-            $response = new SendResponse();
+            $response = new ResponsesForFront();
             $user = new MyUser();
-            if ($user = $user->find($request->input('id'))) {
+            if ($user->find($request->input('id'))) {
                 $user->update($request->all());
                 $user->save();
                 return $response->SendResponse(200, 'User has updated');
@@ -78,10 +74,10 @@ class UserController
     public function deleteUser(Request $request)
     {
         try {
-            $response = new SendResponse();
+            $response = new ResponsesForFront();
             $user = new MyUser();
             //$id = $request->input('id');
-            if ($user = $user->find($request->input('id'))) {
+            if ($user->find($request->input('id'))) {
                 $user->delete();
                 return $response->SendResponse(200, 'User has deleted');
             } else {
