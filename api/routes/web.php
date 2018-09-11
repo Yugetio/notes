@@ -14,8 +14,3 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('/user', 'UserController@createUser');
-Route::put('/user', 'UserController@updateUser');
-Route::delete('/user', 'UserController@deleteUser');
-
-Route::post('/auth', 'AuthController@authUser');
