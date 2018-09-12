@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-class ResponsesForFront
+class ResponseForFront
 {
     function SendResponse($code, $message) {
         return response()->json([

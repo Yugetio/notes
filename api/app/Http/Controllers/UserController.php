@@ -17,7 +17,7 @@ class UserController
     public function createUser(Request $request)
     {
         try {
-            $response = new ResponsesForFront();
+            $response = new ResponseForFront();
             $user = new MyUser();
             $user->email = $request->input('email');
             $user->password = $request->input('password');
@@ -55,7 +55,7 @@ class UserController
     public function updateUser(Request $request)
     {
         try {
-            $response = new ResponsesForFront();
+            $response = new ResponseForFront();
             $user = new MyUser();
             if ($user->find($request->input('id'))) {
                 $user->update($request->all());
@@ -74,7 +74,7 @@ class UserController
     public function deleteUser(Request $request)
     {
         try {
-            $response = new ResponsesForFront();
+            $response = new ResponseForFront();
             $user = new MyUser();
             //$id = $request->input('id');
             if ($user->find($request->input('id'))) {

@@ -15,7 +15,7 @@ class AuthController
     public function authUser(Request $request)
     {
         try {
-            $response = new ResponsesForFront;
+            $response = new ResponseForFront;
             $user = new MyUser();
             $user->email = $request->input('email');
             $user->password = $request->input('password');
