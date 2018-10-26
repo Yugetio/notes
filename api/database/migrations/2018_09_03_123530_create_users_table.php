@@ -30,7 +30,6 @@ class CreateUsersTable extends Migration
             $table->integer('expires_in');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -42,6 +41,5 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('tokens');
-
     }
 }

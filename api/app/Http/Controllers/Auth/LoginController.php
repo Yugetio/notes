@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use App\Models\MyUser;
 use App\Models\Token;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\MyAbstractClass;
 use JWTAuth;
+=======
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+>>>>>>> fixConflicts
 
 class LoginController extends Controller
 {
@@ -28,6 +32,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+<<<<<<< HEAD
 
     /**
      * Create a new AuthController instance.
@@ -135,5 +140,22 @@ class LoginController extends Controller
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60
         ]);
+=======
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+>>>>>>> fixConflicts
     }
 }

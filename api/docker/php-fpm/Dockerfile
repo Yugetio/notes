@@ -34,7 +34,12 @@ RUN sed -i "s/xdebug.remote_autostart=0/xdebug.remote_autostart=1/" /usr/local/e
 # MongoDB:
 ###########################################################################
 
+<<<<<<< HEAD
 RUN pecl install mongodb
+=======
+RUN pecl install mongodb && \
+    docker-php-ext-enable mongodb
+>>>>>>> fixConflicts
 
 #
 #--------------------------------------------------------------------------
