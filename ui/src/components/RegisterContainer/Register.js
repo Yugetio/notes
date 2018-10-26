@@ -79,11 +79,17 @@ class Register extends Component {
                 }
             })
             .then( errors => {
-                this.setState({
-                    errors: {
-                        email: errors.email,
-                        password: errors.password
-                    }});
+                if (errors === undefined) {
+                    return 0;
+                }
+                else {
+                    this.setState({
+                        errors: {
+                            email: errors.email,
+                            password: errors.password
+                        }
+                    });
+                }
             })
             .catch(error => console.error(error));
     }

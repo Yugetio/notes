@@ -91,6 +91,7 @@ class LoginController extends Controller
 //        $expiresFromHeaders = $request->header('expires-in');
 //
 //        if ($expiresFromHeaders < time()) {
+<<<<<<< 567b4e6580d276a20709fe09b019d3cb7ea40478
         $userFromModelToken = MyUser::find(auth()->user()->id)->token;
 //            if ($request->header('refresh-token') !== $userFromDB->refresh_token) {
 //                return new JsonResponse(['message' => 'User hasn`t authorized'], 401);
@@ -101,6 +102,18 @@ class LoginController extends Controller
             'access_token' =>  'Bearer ' .$newAccessToken,
             'expires_in' => auth()->payload()->get('exp')
         ]);
+=======
+            $userFromModelToken = MyUser::find(auth()->user()->id)->token;
+//            if ($request->header('refresh-token') !== $userFromDB->refresh_token) {
+//                return new JsonResponse(['message' => 'User hasn`t authorized'], 401);
+//            }
+            $newAccessToken = JWTAuth::fromUser(auth()->user());
+            $userFromModelToken->update([
+                'Authorization' => 'Bearer ' .$newAccessToken,
+                'access_token' =>  'Bearer ' .$newAccessToken,
+                'expires_in' => auth()->payload()->get('exp')
+            ]);
+>>>>>>> a few fixes
 //            $jsonWithHeaders = new MyAbstractClass();
 //            return new JsonResponse(['pay'=> auth()->payload(), 'token'=> $newAccessToken]);
 //            return $jsonWithHeaders -> SendJsonWithHeaders('User has logged in', 200, $userFromDB);
