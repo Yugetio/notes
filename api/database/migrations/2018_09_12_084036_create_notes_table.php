@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Jenssegers\Mongodb\Schema\Blueprint;
+//use Illuminate\Database\Schema\Blueprint;
 
 class CreateNotesTable extends Migration
 {
@@ -13,11 +14,10 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mongodb')->create('notes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('caption');
-            $table->string('text');
-            $table->timestamps();
+        Schema::connection('mongodb')->create('notes', function (Blueprint $collection) {
+            $collection->index('caption');
+            $collection->index('text');
+            $collection->timestamps();
         });
     }
 
@@ -28,6 +28,10 @@ class CreateNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::connection('mongodb')->table('notes', function (Blueprint $collection) {
+            $collection->dropIfExists();
+        });
+
+            //Schema::dropIfExists('notes');
     }
 }

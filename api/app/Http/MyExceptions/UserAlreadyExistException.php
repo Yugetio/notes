@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\MyExceptions;
-use Exception;
+use \Exception;
 
 class UserAlreadyExistException extends Exception
 {
-    //put your code here
+    public function __construct() {
+
+        parent::__construct("User already exists ", 423);
+    }
 }
     

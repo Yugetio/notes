@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\MyExceptions;
-use Exception;
+use \Exception;
 
 class DataBaseConnectionException extends Exception
 {
-    //put your code here
+    public function __construct() {
+
+        parent::__construct("Bad connection with DB ", 523);
+    }
 }
     

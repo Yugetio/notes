@@ -14,8 +14,22 @@ use Illuminate\Http\Request;
 */
 use Illuminate\Support\Facades\Route;
 
-Route::post('/user', 'UserController@createUser');
-Route::put('/user', 'UserController@updateUser');
-Route::delete('/user', 'UserController@deleteUser');
+Route::post('/user', 'Auth\UserController@createUser');
+Route::post('/login', 'Auth\LoginController@login');
 
-Route::post('/auth', 'AuthController@authUser');
+Route::group([
+    ['middleware' => 'jwt.auth', 'jwt.refresh'],
+    'prefix' => 'auth'
+
+], function () {
+    Route::put('/user', 'Auth\UserController@updateUser');
+    Route::delete('/user', 'Auth\UserController@deleteUser');
+
+    Route::post('/logout', 'Auth\LoginController@logout');
+    Route::post('/refresh', 'Auth\LoginController@refresh');
+    Route::post('/me', 'Auth\LoginController@me');
+
+    Route::post('/note', 'NoteController@createNote');
+    Route::put('/note/{id}', 'NoteController@updateNote');
+    Route::delete('/note/{id}', 'NoteController@deleteNote');
+});
