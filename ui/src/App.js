@@ -11,6 +11,7 @@ import Profile from "./components/ProfileContainer/Profile";
 
 import './App.css';
 
+
 class App extends Component {
 
     constructor(props) {
@@ -36,6 +37,7 @@ class App extends Component {
         }
         else replace('/');
     };
+
 
     render() {
         return (

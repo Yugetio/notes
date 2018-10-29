@@ -56,26 +56,13 @@ class Register extends Component {
             },
             body: JSON.stringify(this.state.data),
         })
-            .then(response => {
+            .then( response => {
                 if (response.status === 200 || response.status === 201) {
                     localStorage.setItem('Authorization', response.headers.get('Authorization'));
                     window.location.replace('/#/user');
                 }
                 else {
                     return response.json();
-                }
-            })
-            .then(errors => {
-                if (errors === undefined) {
-                    return 0;
-                }
-                else {
-                    this.setState({
-                        errors: {
-                            email: errors.email,
-                            password: errors.password
-                        }
-                    });
                 }
             })
             .then( errors => {
@@ -92,7 +79,7 @@ class Register extends Component {
                 }
             })
             .catch(error => console.error(error));
-    }
+    };
 
     render() {
         return (
@@ -106,6 +93,7 @@ class Register extends Component {
                         <div className='error'> {this.state.errors.email} </div>
                         <div className='error'> {this.state.errors.password} </div>
                     </div>
+
                 </div>
             </div>
         );
