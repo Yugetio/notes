@@ -46,7 +46,7 @@ class Folder extends Component {
                     <BackButton folderId={this.state.folderId}/>
                     <div className='contForItems'>
                         {
-                                filteredFolders.map((folder) => {
+                            filteredFolders.map((folder) => {
                                 return (
                                     <Link className='link' to='/folder' key={folder}>
                                         <div className='folder'>{folder} </div>
@@ -63,7 +63,7 @@ class Folder extends Component {
                                 )
                             })
                         }
-                        </div>
+                    </div>
                     <CreateBar/>
                 </div>
 

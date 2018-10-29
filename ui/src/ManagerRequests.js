@@ -16,5 +16,5 @@ export const SendRequestWithAuthorization = (httpMethod, uri, redirectPath ) => 
                 window.location.replace('/#' + redirectPath);
             }
         })
-        .catch(error => console.error(error));
+        .catch( error => console.error(error) );
 };
