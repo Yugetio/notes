@@ -41,7 +41,6 @@
 .contLogout:active{
     background-color: rgba(75, 98, 149, 0.85)
 }
-
 .contDelete{
     display: flex;
     justify-content: center;

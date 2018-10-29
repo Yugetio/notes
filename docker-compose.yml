@@ -35,7 +35,6 @@ services:
       - ./api/:/var/www
     expose:
       - "9000"
-
 ### NGINX Server #########################################
   nginx:
     build:
