@@ -56,7 +56,7 @@ class Register extends Component {
             },
             body: JSON.stringify(this.state.data),
         })
-            .then( response => {
+            .then(response => {
                 if (response.status === 200 || response.status === 201) {
                     localStorage.setItem('Authorization', response.headers.get('Authorization'));
                     window.location.replace('/#/user');
@@ -65,7 +65,7 @@ class Register extends Component {
                     return response.json();
                 }
             })
-            .then( errors => {
+            .then(errors => {
                 if (errors === undefined) {
                     return 0;
                 }
@@ -79,7 +79,7 @@ class Register extends Component {
                 }
             })
             .catch(error => console.error(error));
-    };
+    }
 
     render() {
         return (
@@ -93,7 +93,6 @@ class Register extends Component {
                         <div className='error'> {this.state.errors.email} </div>
                         <div className='error'> {this.state.errors.password} </div>
                     </div>
-
                 </div>
             </div>
         );

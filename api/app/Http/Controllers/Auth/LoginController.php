@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-<<<<<<< HEAD
 use App\Models\MyUser;
 use App\Models\Token;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -13,9 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\MyAbstractClass;
 use JWTAuth;
-=======
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
->>>>>>> fixConflicts
 
 class LoginController extends Controller
 {
@@ -32,7 +28,6 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-<<<<<<< HEAD
 
     /**
      * Create a new AuthController instance.
@@ -96,16 +91,16 @@ class LoginController extends Controller
 //        $expiresFromHeaders = $request->header('expires-in');
 //
 //        if ($expiresFromHeaders < time()) {
-            $userFromModelToken = MyUser::find(auth()->user()->id)->token;
+        $userFromModelToken = MyUser::find(auth()->user()->id)->token;
 //            if ($request->header('refresh-token') !== $userFromDB->refresh_token) {
 //                return new JsonResponse(['message' => 'User hasn`t authorized'], 401);
 //            }
-            $newAccessToken = JWTAuth::fromUser(auth()->user());
-            $userFromModelToken->update([
-                'Authorization' => 'Bearer ' .$newAccessToken,
-                'access_token' =>  'Bearer ' .$newAccessToken,
-                'expires_in' => auth()->payload()->get('exp')
-            ]);
+        $newAccessToken = JWTAuth::fromUser(auth()->user());
+        $userFromModelToken->update([
+            'Authorization' => 'Bearer ' .$newAccessToken,
+            'access_token' =>  'Bearer ' .$newAccessToken,
+            'expires_in' => auth()->payload()->get('exp')
+        ]);
 //            $jsonWithHeaders = new MyAbstractClass();
 //            return new JsonResponse(['pay'=> auth()->payload(), 'token'=> $newAccessToken]);
 //            return $jsonWithHeaders -> SendJsonWithHeaders('User has logged in', 200, $userFromDB);
@@ -140,22 +135,5 @@ class LoginController extends Controller
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60
         ]);
-=======
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
->>>>>>> fixConflicts
     }
 }
