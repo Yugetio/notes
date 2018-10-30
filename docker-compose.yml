@@ -60,8 +60,8 @@ services:
       - MYSQL_PASSWORD=asf9#89hf9384h
       - MYSQL_ROOT_PASSWORD=@rf34f34@#F34f34
     volumes:
-      - ./docker/data/mysql:/var/lib/mysql
-      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./api/docker/data/mysql:/var/lib/mysql
+      - ./api/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 3306
 
@@ -72,7 +72,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./docker/data/mongo:/data/db
+      - ./api/docker/data/mongo:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=notes
       - MONGO_INITDB_ROOT_PASSWORD=asf9#89hf9384h

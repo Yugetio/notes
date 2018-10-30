@@ -75,7 +75,7 @@ class SameNote extends Component {
                             <BaseButton buttonName={this.state.buttonName} handleSubmit={this.handleSubmit} />
                         </div>
                     </div>
-                </div>
+                    </div>
             </div>
         );
     }
