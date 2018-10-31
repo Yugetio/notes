@@ -71,7 +71,7 @@ class FolderController extends MyAbstractClass
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id=null)
+    public function destroy($id)
     {
         try {
             $folder = Folder::find($id);
