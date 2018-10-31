@@ -33,8 +33,7 @@ Route::group([
     Route::put('/note/{id}', 'NoteController@updateNote');
     Route::delete('/note/{id}', 'NoteController@deleteNote');
 
-    Route::post('/folder', 'FolderController@create');
-    Route::post('/folder/{id}', 'FolderController@create');
+    Route::post('/folder/{id?}', 'FolderController@create');
     Route::put('/folder/{id}', 'FolderController@update');
     Route::delete('/folder/{id}', 'FolderController@destroy');
 });
