@@ -50,5 +50,6 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('tokens');
+        Schema::dropIfExists('folders');
     }
 }
