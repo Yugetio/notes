@@ -32,6 +32,9 @@ class App extends Component {
     };
     static isLoggedIn(){
         let Auth = window.localStorage.getItem('Authorization');
+        if (!Auth){
+            return 0;
+        }
         if (Auth === '') {
             return 0;
         }
