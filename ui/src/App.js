@@ -10,6 +10,7 @@ import SameNote from "./components/SameNoteContainer/SameNote";
 import Profile from "./components/ProfileContainer/Profile";
 
 import './App.css';
+import Redirect from "react-router/es/Redirect";
 
 
 class App extends Component {
@@ -19,8 +20,7 @@ class App extends Component {
         this.state = {
             searchRequest: '',
         };
-
-        this.checkIfUserLogin = this.checkIfUserLogin.bind(this);
+        App.isLoggedIn = App.isLoggedIn.bind(this);
     }
 
     receiveSearchRequest = (searchReq) => { // email - дані, що приходять від BaseInput
@@ -30,12 +30,15 @@ class App extends Component {
             }
         );
     };
-
-    checkIfUserLogin(replace){
-        if (window.localStorage.getItem('Authorization') !== "") {
+    static isLoggedIn(){
+        let Auth = window.localStorage.getItem('Authorization');
+        if (!Auth){
             return 0;
         }
-        else replace('/');
+        if (Auth === '') {
+            return 0;
+        }
+        else return 1;
     };
 
 
@@ -45,12 +48,11 @@ class App extends Component {
                 <div className="app">
                     <div className="main-container">
                         <Header requestSearch={this.receiveSearchRequest} />
-                        <Route exact path="/" component={Login} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/folder" render={(props) => <Folder searchRequest={this.state.searchRequest} {...props}/>} />
+                        <Route exact path="/" render={() => App.isLoggedIn() ? <Redirect to='/user'/> : <Login/> }/>
+                        <Route path="/register" render={() => App.isLoggedIn() ? <Redirect to='/user'/> : <Register/>} />
+                        <Route path="/folder" render={(props) => App.isLoggedIn() ? <Folder searchRequest={this.state.searchRequest} {...props}/> : <Redirect to='/'/>} />
                         <Route path="/note/id" component={SameNote} />
-                        <Route path="/user" component={Profile} onEnter={this.checkIfUserLogin} />
-
+                        <Route exact path="/user" render={() => App.isLoggedIn() ? <Profile/> : <Redirect to='/'/>} />
                     </div>
 
                     <Route exact path="/" component={Description}>

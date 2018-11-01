@@ -13,6 +13,7 @@ npm-debug.log
 yarn-error.log
 .phpunit.result.cache
 /docker/data/
+/docker/data/mysql/*
 
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
