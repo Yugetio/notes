@@ -30,6 +30,15 @@ class CreateUsersTable extends Migration
             $table->integer('expires_in');
             $table->timestamps();
         });
+
+        Schema::create('folders', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
+            $table->integer('parent_folder_id')->unsigned()->nullable();
+            $table->string('title');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -41,5 +50,6 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('tokens');
+        Schema::dropIfExists('folders');
     }
 }
