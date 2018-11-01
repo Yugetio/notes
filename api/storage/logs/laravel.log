@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [2018-10-30 12:58:15] local.ERROR: The HTTP status code "0" is not valid. {"exception":"[object] (InvalidArgumentException(code: 0): The HTTP status code \"0\" is not valid. at /var/www/vendor/symfony/http-foundation/Response.php:452)
 [stacktrace]
 #0 /var/www/vendor/symfony/http-foundation/Response.php(203): Symfony\\Component\\HttpFoundation\\Response->setStatusCode(0)
@@ -4888,3 +4889,5 @@
 #35 {main}
 >>>>>>> UI-002
 "} 
+=======
+>>>>>>> revert-46499d4c

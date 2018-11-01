@@ -72,7 +72,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./api/docker/data/mongo:/data/db
+      - ./docker/data/mongo:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=notes
       - MONGO_INITDB_ROOT_PASSWORD=asf9#89hf9384h
