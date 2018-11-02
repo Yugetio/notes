@@ -37,4 +37,5 @@ Route::group([
     Route::put('/folder/{id}', 'FolderController@update');
     Route::delete('/folder/{id}', 'FolderController@destroy');
 
+    Route::post('/folderInsert/{id}', 'FolderController@createHeritableFolder');
 });
