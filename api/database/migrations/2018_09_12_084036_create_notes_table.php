@@ -15,8 +15,12 @@ class CreateNotesTable extends Migration
     public function up()
     {
         Schema::connection('mongodb')->create('notes', function (Blueprint $collection) {
-            $collection->index('caption');
-            $collection->index('text');
+            $collection->string('caption');
+            $collection->unique('caption');
+            $collection->longText('text');
+            $collection->string('parent_id');
+            $collection->string('parent_id')->nullable();
+            $collection->string('user_id');
             $collection->timestamps();
         });
     }

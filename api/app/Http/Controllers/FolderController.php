@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class FolderController extends MyAbstractClass
-{
+class FolderController extends MyAbstractClass{
+
     protected function checkTitle(Request $request)
     {
         if ($request->title) {
@@ -20,15 +20,15 @@ class FolderController extends MyAbstractClass
         return true;
     }
 
-    public function create(Request $request,$idInsertFolder){
+    public function create(Request $request, $idInsertFile, $preFolder, $postFolder){
 
         try {
             $folder = new Folder();
             $folder->user_id = auth()->user()->id;
-            $folderInsertList = [];
+            $fileInsertList = [];
 
-            if($idInsertFolder){
-                array_push($folderInsertList,json_encode($idInsertFolder);
+            if($idInsertFile){
+                array_push($fileInsertList,json_encode($idInsertFile));
             }
             if ($this->checkTitle($request)) {
                 throw new FolderNotGetTitleException();
@@ -43,6 +43,7 @@ class FolderController extends MyAbstractClass
     }
 
     public function update(Request $request, $id){
+
         try {
             $folder = Folder::find($id);
 
@@ -62,9 +63,10 @@ class FolderController extends MyAbstractClass
         }
     }
 
-    public function createHeritableFolder(Request $request,  $idInsertFolder){
+    public function createFiles(Request $request, $idFolder, $idInsertFolder){
+
         try{
-           return $this->create($request,  $idInsertFolder);
+           return $this->create($request, $idFolder,  $idInsertFolder);
         }
         catch (\Exception $e) {
             return  $this->SendError($e);
@@ -72,6 +74,7 @@ class FolderController extends MyAbstractClass
     }
 
     public function destroy($id){
+
         try {
             $folder = Folder::find($id);
 

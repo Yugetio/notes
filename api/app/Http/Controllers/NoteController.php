@@ -19,6 +19,8 @@ class NoteController extends MyAbstractClass
             $note = new Note();
             $note->caption = $request->input('caption');
             $note->text = $request->input('text');
+            $note->parent_id = $request->input('parent_id');
+            $note->parent_id = $request->input('user_id');
             $note->save();
             return new JsonResponse(['message' => 'Note has created'], 201);
         } catch (\Exception $e) {
