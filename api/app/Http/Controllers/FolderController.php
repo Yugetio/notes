@@ -20,21 +20,14 @@ class FolderController extends MyAbstractClass{
         return true;
     }
 
-    public function create(Request $request, $idInsertFile, $preFolder, $postFolder){
+    public function create(Request $request){
 
         try {
             $folder = new Folder();
             $folder->user_id = auth()->user()->id;
-            $fileInsertList = [];
-
-            if($idInsertFile){
-                array_push($fileInsertList,json_encode($idInsertFile));
-            }
-            if ($this->checkTitle($request)) {
-                throw new FolderNotGetTitleException();
-            }
-
             $folder->title = $request->input('title');
+            $folder->user_id = $request->input('user_id');
+            $folder->parent_id= $request->input('parent_id');
             $folder->save();
             return new JsonResponse(['message' => 'Folder has created'], 201);
         } catch (\Exception $e) {
@@ -63,17 +56,11 @@ class FolderController extends MyAbstractClass{
         }
     }
 
-    public function createFiles(Request $request, $idFolder, $idInsertFolder){
+    public function get($id){
 
-        try{
-           return $this->create($request, $idFolder,  $idInsertFolder);
-        }
-        catch (\Exception $e) {
-            return  $this->SendError($e);
-        }
     }
 
-    public function destroy($id){
+    public function deleted($id){
 
         try {
             $folder = Folder::find($id);

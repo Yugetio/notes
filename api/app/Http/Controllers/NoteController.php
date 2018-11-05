@@ -13,14 +13,14 @@ use \App\Http\MyExceptions\UserNotFoundException;
 
 class NoteController extends MyAbstractClass
 {
-    public function createNote(Request $request)
+    public function create(Request $request)
     {
         try {
             $note = new Note();
             $note->caption = $request->input('caption');
             $note->text = $request->input('text');
             $note->parent_id = $request->input('parent_id');
-            $note->parent_id = $request->input('user_id');
+            $note->user_id = $request->input('user_id');
             $note->save();
             return new JsonResponse(['message' => 'Note has created'], 201);
         } catch (\Exception $e) {
@@ -28,7 +28,7 @@ class NoteController extends MyAbstractClass
         }
     }
 
-    public function updateNote(Request $request, $id)
+    public function update(Request $request, $id)
     {
         try {
             $note = Note::find($id);
@@ -45,7 +45,7 @@ class NoteController extends MyAbstractClass
         //Redirect::to('/notes');
     }
 
-    public function deleteNote($id)
+    public function delete($id)
     {
         try {
             $note = Note::find($id);
