@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BackButton from '../BackButton/BackButton';
 import CreateBar from '../CreateBar/CreateBar';
+import CreateFolderWindow from '../CreateFolderWindow/CreateFolderWindow';
 
 import './folder.css';
 
@@ -10,7 +11,7 @@ class Folder extends Component {
         super(props);
 
         this.state = {
-            folderId: 1,
+            folderId: 0,
             data:{
                 folders: [
                     'my folder',
@@ -64,6 +65,7 @@ class Folder extends Component {
                             })
                         }
                         </div>
+                    <CreateFolderWindow/>
                     <CreateBar/>
                 </div>
 
