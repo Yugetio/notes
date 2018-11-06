@@ -44,7 +44,9 @@ class NoteController extends MyAbstractClass
         }
         //Redirect::to('/notes');
     }
+    public function get(){
 
+    }
     public function delete($id)
     {
         try {

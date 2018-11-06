@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class FolderController extends MyAbstractClass{
+class FolderController extends Controller {
 
     protected function checkTitle(Request $request)
     {
@@ -24,12 +24,12 @@ class FolderController extends MyAbstractClass{
 
         try {
             $folder = new Folder();
-            $folder->user_id = auth()->user()->id;
+            //$folder->user_id = auth()->user()->id;
             $folder->title = $request->input('title');
             $folder->user_id = $request->input('user_id');
             $folder->parent_id= $request->input('parent_id');
             $folder->save();
-            return new JsonResponse(['message' => 'Folder has created'], 201);
+            return new JsonResponse(['message' => 'Folder has created'], 200);
         } catch (\Exception $e) {
             return $this->SendError($e);
         }
@@ -57,7 +57,13 @@ class FolderController extends MyAbstractClass{
     }
 
     public function get($id){
+        try{
+            $folder = Folder::find($id);
 
+            return new JsonResponse($folder, 200);
+        }catch (\Exception $e) {
+            return  $this->SendError($e);
+        }
     }
 
     public function deleted($id){
@@ -74,5 +80,9 @@ class FolderController extends MyAbstractClass{
         } catch (\Exception $e) {
             return  $this->SendError($e);
         }
+    }
+    public static function SendError(\Exception $e) {
+
+        return new JsonResponse($e->getMessage(), $e->getCode());
     }
 }

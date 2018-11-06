@@ -34,7 +34,7 @@ Route::group([
     Route::delete('/note/{id}', 'NoteController@delete');
     Route::get('/note/{id}', 'NoteController@get');
 
-    Route::post('/folder/{id?}', 'FolderController@create');
+    Route::post('/folder', 'FolderController@create');
     Route::put('/folder/{id}', 'FolderController@update');
     Route::delete('/folder/{id}', 'FolderController@delete');
     Route::get('/folder/{id}', 'FolderController@get');
