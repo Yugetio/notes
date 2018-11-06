@@ -28,7 +28,7 @@ class Login extends Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    receiveEmail = (email) => { // email - дані, що приходять від BaseInput
+        receiveEmail = (email) => { // email - дані, що приходять від BaseInput
         this.setState(
             {
                 data:{
