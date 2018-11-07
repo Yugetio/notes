@@ -6,7 +6,7 @@ use Tests\TestCase;
 class FolderTest extends TestCase
 {
     public function testCreate(){
-        $response = $this->post('/folder',
+        $response = $this->post('/api/auth/folder/1',
             [
                 'title' => 'testuser@mail.com',
                 'user_id' => '1',

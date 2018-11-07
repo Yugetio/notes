@@ -19,8 +19,7 @@ class CreateNotesTable extends Migration
             $collection->string('caption')->unique();
             $collection->longText('text');
             $collection->string('parent_id');
-            $collection->integer('user_id')->unsigned()->nullable();
-            $collection->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
+            $collection->integer('user_id')->nullable();
             $collection->timestamps();
         });
     }

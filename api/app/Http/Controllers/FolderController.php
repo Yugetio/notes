@@ -26,8 +26,13 @@ class FolderController extends Controller {
             $folder = new Folder();
             $folder->user_id = auth()->user()->id;
             $folder->title = $request->input('title');
-            $folder->user_id = $request->input('user_id');
-            $folder->parent_id= $parent_id;
+
+            if ($parent_id){
+                $folder->parent_id= $parent_id;
+            } else {
+                $folder->parent_id=null;
+            }
+
             $folder->save();
             return new JsonResponse(['message' => 'Folder has created'], 200);
         } catch (\Exception $e) {

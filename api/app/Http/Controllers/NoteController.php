@@ -6,20 +6,25 @@ use App\Http\MyExceptions\NoteNotFoundException;
 use App\Models\Note;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
 use \Exception;
 use \App\Http\MyExceptions\UserNotFoundException;
 
 
 class NoteController extends MyAbstractClass
 {
-    public function create(Request $request)
+    public function create(Request $request, $parent_id)
     {
         try {
             $note = new Note();
             $note->caption = $request->input('caption');
             $note->text = $request->input('text');
-            $note->parent_id = $request->input('parent_id');
+
+            if ($parent_id){
+                $note->parent_id= $parent_id;
+            } else {
+                $note->parent_id=null;
+            }
+
             $note->user_id = $request->input('user_id');
             $note->save();
             return new JsonResponse(['message' => 'Note has created'], 201);

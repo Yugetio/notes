@@ -10,10 +10,10 @@ class NoteTest extends TestCase
 {
 //    public function testCreate()
 //    {
-//        $response = $this->post('/api/note',
+//        $response = $this->post('/api/auth/note/1',
 //            [
-//                'caption' => 'test3',
-//                'text' => 'My test note3'
+//                'caption' => 'test4',
+//                'text' => 'My test note4'
 //            ]);
 //        var_dump($response->content());
 //        $this->assertEquals(201, $response->status());

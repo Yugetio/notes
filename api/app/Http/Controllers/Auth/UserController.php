@@ -106,7 +106,6 @@ class UserController extends Controller
         }
     }
 
-
     /**
      * @return JsonResponse
      */

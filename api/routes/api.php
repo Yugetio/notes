@@ -17,11 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/user', 'Auth\UserController@createUser');
 Route::post('/login', 'Auth\LoginController@login');
 
-Route::post('/folder', 'FolderController@create');
-Route::put('/folder/{id}', 'FolderController@update');
-Route::delete('/folder/{id}', 'FolderController@delete');
-Route::get('/folder/{id}', 'FolderController@get');
-
 Route::group([
     ['middleware' => 'jwt.auth', 'jwt.refresh'],
     'prefix' => 'auth'
@@ -34,10 +29,13 @@ Route::group([
     Route::post('/refresh', 'Auth\LoginController@refresh');
     Route::post('/me', 'Auth\LoginController@me');
 
-    Route::post('/note', 'NoteController@create');
+    Route::post('/note/{id}', 'NoteController@create');
     Route::put('/note/{id}', 'NoteController@update');
     Route::delete('/note/{id}', 'NoteController@delete');
     Route::get('/note/{id}', 'NoteController@get');
 
-
+    Route::post('/folder/{id}', 'FolderController@create');
+    Route::put('/folder/{id}', 'FolderController@update');
+    Route::delete('/folder/{id}', 'FolderController@delete');
+    Route::get('/folder/{id}', 'FolderController@get');
 });
