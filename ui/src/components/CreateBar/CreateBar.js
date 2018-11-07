@@ -15,8 +15,8 @@ class CreateBar extends Component {
 
     render() {
         return (
-            <div className='addFoldNote'>
-                <CreateFolder/>
+            <div className='addFoldNote' >
+              <CreateFolder  />
                 <CreateNote/>
             </div>
         );
