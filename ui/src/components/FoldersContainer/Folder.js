@@ -12,6 +12,7 @@ class Folder extends Component {
 
         this.state = {
             folderId: 0,
+            CreateFolder: false,
             data:{
                 folders: [
                     'my folder',
@@ -30,6 +31,15 @@ class Folder extends Component {
 
         };
     }
+
+    handleClick() {
+        if (this.state.CreateFolder) {
+            this.setState({ CreateFolder: false });
+        } else {
+            this.setState({ CreateFolder: true });
+        }
+    };
+
     render() {
         let filteredFolders = this.state.data.folders.filter(
             (folder) => {
@@ -41,6 +51,7 @@ class Folder extends Component {
                 return note.toLowerCase().indexOf(
                     this.props.searchRequest.toLowerCase()) !== -1;
             });
+
         return (
             <div className='wrapp'>
                 <div className='cont'>
@@ -65,8 +76,8 @@ class Folder extends Component {
                             })
                         }
                         </div>
-                    <CreateFolderWindow/>
-                    <CreateBar/>
+                    <CreateFolderWindow CreateFolder = {this.state.CreateFolder}/>
+                    <CreateBar CreateFolder = {this.handleClick}/>
                 </div>
 
             </div>

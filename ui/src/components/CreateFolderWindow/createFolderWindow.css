@@ -1,18 +1,18 @@
 .createFolderWindow {
-    height: 300px;
-    width: 600px;
+    height: 40%;
+    width: 50%;
     background: #eee;
     display: flex;
-
     position: absolute;
     border: 1px solid black;
     border-radius: 2px ;
     margin: 0 auto;
     text-align: left;
-
     flex-direction: column;
     justify-content: space-between;
-
+    top: 25%;
+    left: 25%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .name p{
@@ -30,7 +30,6 @@
     float: right;
 }
 
-
 .inputName{
     height: 140px;
     background: #afcfd03b;
@@ -39,7 +38,7 @@
 .inputName input{
     width: 90%;
     height: 40px;
-    margin-top: 20px;
+    margin-top: 25px;
     font: 2.3vw Snell Roundhand, cursive;
 
 }
@@ -59,10 +58,10 @@
     text-align: center;
     font-size: 24px;
     padding: 5px;
-    width: 150px;
+    width: 25%;
     transition: all 0.5s;
     cursor: pointer;
-    margin: 5px;
+    margin: 4px 20px 21px 0;
     float: right;
     font-style: italic;
 }

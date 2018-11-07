@@ -7,7 +7,7 @@ class CreateFolder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            CreateFolderWindow: false
+
         };
     };
 
@@ -15,7 +15,7 @@ class CreateFolder extends Component {
     render() {
         return (
 
-            <div className="field">
+            <div className="field" >
 
                 <p className='createFolder'> </p>
             </div>
