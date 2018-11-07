@@ -53,7 +53,7 @@ class UserTest extends TestCase
 
 //    public function testDelete()
 //    {
-//        $response = $this->delete('/api/user/56');
+//        $response = $this->delete('/api/user/2');
 //        var_dump($response->getContent());
 //        $this->assertEquals(200, $response->status());
 //    }

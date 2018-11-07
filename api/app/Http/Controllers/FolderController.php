@@ -20,14 +20,14 @@ class FolderController extends Controller {
         return true;
     }
 
-    public function create(Request $request){
+    public function create(Request $request, $parent_id){
 
         try {
             $folder = new Folder();
-            //$folder->user_id = auth()->user()->id;
+            $folder->user_id = auth()->user()->id;
             $folder->title = $request->input('title');
             $folder->user_id = $request->input('user_id');
-            $folder->parent_id= $request->input('parent_id');
+            $folder->parent_id= $parent_id;
             $folder->save();
             return new JsonResponse(['message' => 'Folder has created'], 200);
         } catch (\Exception $e) {
