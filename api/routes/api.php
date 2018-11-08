@@ -29,12 +29,13 @@ Route::group([
     Route::post('/refresh', 'Auth\LoginController@refresh');
     Route::post('/me', 'Auth\LoginController@me');
 
-    Route::post('/note', 'NoteController@createNote');
-    Route::put('/note/{id}', 'NoteController@updateNote');
-    Route::delete('/note/{id}', 'NoteController@deleteNote');
+    Route::post('/note/{id}', 'NoteController@create');
+    Route::put('/note/{id}', 'NoteController@update');
+    Route::delete('/note/{id}', 'NoteController@delete');
+    Route::get('/note/{id}', 'NoteController@get');
 
-    Route::post('/folder/{id?}', 'FolderController@create');
+    Route::post('/folder/{id}', 'FolderController@create');
     Route::put('/folder/{id}', 'FolderController@update');
-    Route::delete('/folder/{id}', 'FolderController@destroy');
-
+    Route::delete('/folder/{id}', 'FolderController@deleted');
+    Route::get('/folder/{id}', 'FolderController@get');
 });
