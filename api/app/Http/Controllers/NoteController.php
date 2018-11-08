@@ -37,9 +37,7 @@ class NoteController extends MyAbstractClass
     {
         try {
             $note = Note::find($id);
-            if (!$note) {
-                throw new NoteNotFoundException();
-            }
+
             $note->caption = $request->input('caption');
             $note->text = $request->input('text');
             $note->save();
@@ -56,9 +54,7 @@ class NoteController extends MyAbstractClass
     {
         try {
             $note = Note::find($id);
-            if (!$note) {
-                throw new NoteNotFoundException();
-            }
+
             $note->delete();
             return new JsonResponse(['message'=>'Note has deleted'], 200);
         } catch (\Exception $e) {

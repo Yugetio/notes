@@ -36,6 +36,6 @@ Route::group([
 
     Route::post('/folder/{id}', 'FolderController@create');
     Route::put('/folder/{id}', 'FolderController@update');
-    Route::delete('/folder/{id}', 'FolderController@delete');
+    Route::delete('/folder/{id}', 'FolderController@deleted');
     Route::get('/folder/{id}', 'FolderController@get');
 });

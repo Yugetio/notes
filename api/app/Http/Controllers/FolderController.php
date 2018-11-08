@@ -24,13 +24,13 @@ class FolderController extends Controller {
 
         try {
             $folder = new Folder();
-            $folder->user_id = auth()->user()->id;
+            $folder->user_id = $request->input('user_id');
             $folder->title = $request->input('title');
 
             if ($parent_id){
-                $folder->parent_id= $parent_id;
+                $folder->parent_id = $parent_id;
             } else {
-                $folder->parent_id=null;
+                $folder->parent_id = null;
             }
 
             $folder->save();
@@ -45,16 +45,9 @@ class FolderController extends Controller {
         try {
             $folder = Folder::find($id);
 
-            if (!$folder) {
-                throw new FolderNotFoundException();
-            }
-
-            if ($this->checkTitle($request)) {
-                throw new FolderNotGetTitleException();
-            }
-
             $folder->title = $request->title;
             $folder->save();
+
             return new JsonResponse(['message'=>'Folder has updated'], 200);
         } catch (\Exception $e) {
             return  $this->SendError($e);
@@ -62,10 +55,14 @@ class FolderController extends Controller {
     }
 
     public function get($id){
+
         try{
             $folder = Folder::find($id);
-
-            return new JsonResponse($folder, 200);
+            $folderDataSend = [
+              $folder->title, $folder->id, $folder->parent_id
+            ];
+            // var_dump($folderDataSend);
+            return new JsonResponse(['message'=>'Folder has output',$folderDataSend ], 200);
         }catch (\Exception $e) {
             return  $this->SendError($e);
         }
@@ -75,10 +72,6 @@ class FolderController extends Controller {
 
         try {
             $folder = Folder::find($id);
-
-            if (!$folder) {
-                throw new FolderNotFoundException();
-            }
 
             $folder->delete();
             return new JsonResponse(['message'=>'Folder has deleted'], 200);
