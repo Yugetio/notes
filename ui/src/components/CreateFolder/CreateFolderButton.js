@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './createFolder.css';
 
 
-class CreateFolder extends Component {
+class CreateFolderButton extends Component {
 
     constructor(props) {
         super(props);
@@ -13,18 +13,18 @@ class CreateFolder extends Component {
 
 
 
-click = () => {
+clickCreateFolder = () => {
     this.props.handleClick(this.state.CreateFolder)
 };
 
 
     render() {
         return (
-            <div className="field" onClick={this.click}>
+            <div className="field" onClick={this.clickCreateFolder}>
                 <p className='createFolder'> </p>
             </div>
         );
     };
 }
 
-export default CreateFolder;
+export default CreateFolderButton;
