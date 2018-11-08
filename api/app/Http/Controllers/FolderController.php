@@ -20,17 +20,17 @@ class FolderController extends Controller {
         return true;
     }
 
-    public function create(Request $request, $parent_id){
+    public function create(Request $request){
 
         try {
             $folder = new Folder();
             $folder->user_id = $request->input('user_id');
             $folder->title = $request->input('title');
 
-            if ($parent_id){
-                $folder->parent_id = $parent_id;
-            } else {
+            if ($request->input('title') === 0){
                 $folder->parent_id = null;
+            }else{
+                $folder->parent_id = $request->input('parent_id');
             }
 
             $folder->save();
@@ -61,8 +61,9 @@ class FolderController extends Controller {
             $folderDataSend = [
               $folder->title, $folder->id, $folder->parent_id
             ];
-            // var_dump($folderDataSend);
-            return new JsonResponse(['message'=>'Folder has output',$folderDataSend ], 200);
+            $folderList = DB::table('folders')->where('parent_id', '=', $id)-value('title');
+
+            return new JsonResponse(['message'=>'Folder has output',$folderDataSend,$folderList ], 200);
         }catch (\Exception $e) {
             return  $this->SendError($e);
         }
