@@ -47,8 +47,8 @@ services:
     environment:
       - MYSQL_DATABASE=notes
       - MYSQL_USER=notes
-      - 'MYSQL_PASSWORD=asf9#89hf9384h'
-      - 'MYSQL_ROOT_PASSWORD=@rf34f34@#F34f34'
+      - MYSQL_PASSWORD=asf9#89hf9384h
+      - MYSQL_ROOT_PASSWORD=@rf34f34@#F34f34
     volumes:
       - './api/docker/data/mysql:/var/lib/mysql'
       - './api/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'

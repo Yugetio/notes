@@ -12,7 +12,7 @@ class Folder extends Component {
 
         this.state = {
             folderId: 0,
-            CreateFolder: false,
+            CreateFolder: 0,
             data:{
                 folders: [
                     'my folder',
@@ -32,13 +32,11 @@ class Folder extends Component {
         };
     }
 
-    handleClick() {
-        if (this.state.CreateFolder) {
-            this.setState({ CreateFolder: false });
-        } else {
-            this.setState({ CreateFolder: true });
-        }
+    handleClick = (value) => {
+        this.setState({ CreateFolder: value })
     };
+
+
 
     render() {
         let filteredFolders = this.state.data.folders.filter(
@@ -54,8 +52,10 @@ class Folder extends Component {
 
         return (
             <div className='wrapp'>
+
                 <div className='cont'>
                     <BackButton folderId={this.state.folderId}/>
+
                     <div className='contForItems'>
                         {
                                 filteredFolders.map((folder) => {
@@ -76,8 +76,11 @@ class Folder extends Component {
                             })
                         }
                         </div>
-                    <CreateFolderWindow CreateFolder = {this.state.CreateFolder}/>
-                    <CreateBar CreateFolder = {this.handleClick}/>
+                    <CreateFolderWindow
+                        CreateFolder = {this.state.CreateFolder}
+                        handleClick = {this.handleClick}
+                    />
+                    <CreateBar handleClick = {this.handleClick}/>
                 </div>
 
             </div>

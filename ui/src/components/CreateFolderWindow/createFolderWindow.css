@@ -15,7 +15,7 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-.name p{
+.nameFolder p{
     display: inline-block;
     margin: 15px;
     font-size: 18px;
@@ -23,11 +23,9 @@
     font-style: italic;
 }
 
-.name p a{
-    text-decoration: none;
-}
-.name p:nth-child(2n){
+.nameFolder p:nth-child(2n){
     float: right;
+    cursor: pointer;
 }
 
 .inputName{

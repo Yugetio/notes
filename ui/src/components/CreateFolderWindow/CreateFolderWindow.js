@@ -7,21 +7,25 @@ class CreateFolderWindow extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            CreateFolder: 0,
         };
+    };
+
+    closeFolderWindow = () => {
+        this.props.handleClick(this.state.CreateFolder)
     };
 
     render() {
 
         let isFolderWindow;
-        if (this.props.CreateFolder === false) {
+        if (this.props.CreateFolder === 0) {
             isFolderWindow = null;
         } else {
             isFolderWindow =
                 <div className="createFolderWindow">
-                    <div className="name">
+                    <div className="nameFolder">
                         <p>Name Folder</p>
-                        <p><a href="#">&#10008;</a></p>
+                        <p onClick={this.closeFolderWindow}>&#10008;</p>
                     </div>
                     <div className="inputName">
                         <div className="input" > <input type="text" /></div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CreateFolder from '../CreateFolder/CreateFolder';
+import CreateFolderButton from '../CreateFolder/CreateFolderButton';
 import CreateNote from '../CreateNote/CreateNote';
 
 import './createBar.css';
@@ -9,14 +9,16 @@ class CreateBar extends Component {
         super(props);
 
         this.state = {
+
         };
 
     }
 
+
     render() {
         return (
             <div className='addFoldNote' >
-              <CreateFolder  />
+                <CreateFolderButton handleClick = {this.props.handleClick}/>
                 <CreateNote/>
             </div>
         );
