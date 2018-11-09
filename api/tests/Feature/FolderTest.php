@@ -6,18 +6,18 @@ use Tests\TestCase;
 class FolderTest extends TestCase
 {
 //    public function testCreate(){
-//        $response = $this->post('/api/auth/folder',
+//        $response = $this->post('/api/auth/folder/1',
 //            [
-//                'title' => 'Folder_3',
+//                'title' => 'Folder_1_3',
 //                'user_id' => '1',
-//                'parent_id' => '6'
 //            ]);
-//        //var_dump($response->getContent());
+//
+//        var_dump($response->getContent());
 //        $this->assertEquals(200, $response->status());
 //    }
 
     public function testGet(){
-        $response = $this->get('/api/auth/folder/6',
+        $response = $this->get('/api/auth/folder/1',
             [
 
             ]);

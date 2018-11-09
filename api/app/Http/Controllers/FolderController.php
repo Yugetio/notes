@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\MyExceptions\FolderNotFoundException;
-use App\Http\MyExceptions\FolderParentNotFoundException;
-use App\Http\MyExceptions\FolderNotGetTitleException;
 use App\Models\Folder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
@@ -20,17 +17,17 @@ class FolderController extends Controller {
         return true;
     }
 
-    public function create(Request $request){
+    public function create(Request $request, $parent_id){
 
         try {
             $folder = new Folder();
             $folder->user_id = $request->input('user_id');
             $folder->title = $request->input('title');
 
-            if ($request->input('title') === 0){
+            if ($parent_id == 0){
                 $folder->parent_id = null;
             }else{
-                $folder->parent_id = $request->input('parent_id');
+                $folder->parent_id = $parent_id;
             }
 
             $folder->save();
@@ -58,12 +55,15 @@ class FolderController extends Controller {
 
         try{
             $folder = Folder::find($id);
-            $folderDataSend = [
+            $folderData = [
               $folder->title, $folder->id, $folder->parent_id
             ];
-            $folderList = DB::table('folders')->where('parent_id', '=', $id)-value('title');
 
-            return new JsonResponse(['message'=>'Folder has output',$folderDataSend,$folderList ], 200);
+            $subfolders = Folder::find($id)->subfolders;
+
+           var_dump($subfolders);
+
+            return new JsonResponse(['message'=>'Folder has sended', $subfolders, $folderData], 200);
         }catch (\Exception $e) {
             return  $this->SendError($e);
         }
