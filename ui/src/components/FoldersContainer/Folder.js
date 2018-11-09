@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import BackButton from '../BackButton/BackButton';
 import CreateBar from '../CreateBar/CreateBar';
 import CreateFolderWindow from '../CreateFolderWindow/CreateFolderWindow';
+import CreateNoteWindow from '../CreateNoteWindow/CreateNoteWindow';
 
 import './folder.css';
 
@@ -12,7 +13,7 @@ class Folder extends Component {
 
         this.state = {
             folderId: 0,
-            CreateFolder: 0,
+            CreateFolderOrNote: 0,
             data:{
                 folders: [
                     'my folder',
@@ -33,7 +34,7 @@ class Folder extends Component {
     }
 
     handleClick = (value) => {
-        this.setState({ CreateFolder: value })
+        this.setState({ CreateFolderOrNote: value })
     };
 
 
@@ -77,7 +78,11 @@ class Folder extends Component {
                         }
                         </div>
                     <CreateFolderWindow
-                        CreateFolder = {this.state.CreateFolder}
+                        CreateFolder = {this.state.CreateFolderOrNote}
+                        handleClick = {this.handleClick}
+                    />
+                    <CreateNoteWindow
+                        CreateNote = {this.state.CreateFolderOrNote}
                         handleClick = {this.handleClick}
                     />
                     <CreateBar handleClick = {this.handleClick}/>

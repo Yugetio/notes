@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './createFolderWindow.css';
+import '../CreateNoteWindow/cteateNoteWindow.css';
 
 
 class CreateFolderWindow extends Component {
@@ -7,28 +7,32 @@ class CreateFolderWindow extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            CreateFolder: 0,
+            CreateFolderOrNote: 0,
         };
     };
 
     closeFolderWindow = () => {
-        this.props.handleClick(this.state.CreateFolder)
+        this.props.handleClick(this.state.CreateFolderOrNote)
     };
 
     render() {
 
         let isFolderWindow;
-        if (this.props.CreateFolder === 0) {
+        if (this.props.CreateFolder === 0 || this.props.CreateFolder === 2) {
             isFolderWindow = null;
         } else {
             isFolderWindow =
-                <div className="createFolderWindow">
-                    <div className="nameFolder">
-                        <p>Name Folder</p>
+                <div className="create">
+                    <div className="name">
+                        <p>Create Folder</p>
                         <p onClick={this.closeFolderWindow}>&#10008;</p>
                     </div>
-                    <div className="inputName">
-                        <div className="input" > <input type="text" /></div>
+                    <div className="inputFieldsFolder">
+                        <div className="inputTitleFolder" >
+                            <input
+                                className="inputStyle"
+                                type="text"
+                                placeholder="Enter folder name"/></div>
                     </div>
                     <button className="button"><span>Create</span></button>
                 </div>
