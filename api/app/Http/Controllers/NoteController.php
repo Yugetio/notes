@@ -49,6 +49,19 @@ class NoteController extends MyAbstractClass
     }
     public function get(){
 
+        try{
+            $folder = Note::find($id);
+            $folderData = [
+                $folder->title, $folder->id, $folder->parent_id
+            ];
+
+            $subnotes = Note::find($id)->notes;
+            $response = $this->prepareGetDataForResponse($subnotes);
+
+            return new JsonResponse(['message'=>'Folder has sended', $response, $folderData], 200);
+        }catch (\Exception $e) {
+            return  $this->SendError($e);
+        }
     }
     public function delete($id)
     {
@@ -61,5 +74,18 @@ class NoteController extends MyAbstractClass
             return  $this->SendError($e);
         }
         //Redirect::to('/notes');
+    }
+
+    protected function prepareGetDataForResponse($subnotes){
+        $titleList = array();
+        $idList = array();
+
+        for ($i=0; $i < count($subnotes); $i++){
+            array_push($idList,$subnotes[$i]->id);
+            array_push($titleList, $subnotes[$i]->caption);
+            array_push($textList, $subnotes[$i]->text);
+        }
+        return array_merge($titleList,$idList,$textList);
+
     }
 }

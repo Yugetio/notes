@@ -16,13 +16,23 @@ class FolderTest extends TestCase
 //        $this->assertEquals(200, $response->status());
 //    }
 
-    public function testGet(){
-        $response = $this->get('/api/auth/folder/1',
-            [
+//    public function testUpdate()
+//    {
+//        $response = $this->put('/api/auth/folder/1',
+//            [
+//                'title' => 'Upd_1'
+//            ]);
+//        var_dump($response->Content());
+//        $this->assertEquals(200, $response->status());
+//    }
 
-            ]);
-        //var_dump($response->getContent());
-        $this->assertEquals(200, $response->status());
-    }
+//    public function testGet(){
+//        $response = $this->get('/api/auth/folder/1',
+//            [
+//
+//            ]);
+//        //var_dump($response->getContent());
+//        $this->assertEquals(200, $response->status());
+//    }
 }
 //FOR STARTING TESTS USE --- vendor/bin/phpunit !!!
