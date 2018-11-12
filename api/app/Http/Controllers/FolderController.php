@@ -9,14 +9,6 @@ use Illuminate\Http\Request;
 
 class FolderController extends Controller {
 
-    protected function checkTitle(Request $request)
-    {
-        if ($request->title) {
-            return false;
-        }
-        return true;
-    }
-
     public function create(Request $request, $parent_id){
 
         try {
@@ -60,10 +52,9 @@ class FolderController extends Controller {
             ];
 
             $subfolders = Folder::find($id)->subfolders;
+            $response = $this->prepareGetDataForResponse($subfolders);
 
-           var_dump($subfolders);
-
-            return new JsonResponse(['message'=>'Folder has sended', $subfolders, $folderData], 200);
+            return new JsonResponse(['message'=>'Folder has sended', $response, $folderData], 200);
         }catch (\Exception $e) {
             return  $this->SendError($e);
         }
@@ -80,8 +71,28 @@ class FolderController extends Controller {
             return  $this->SendError($e);
         }
     }
-    public static function SendError(\Exception $e) {
+    protected static function SendError(\Exception $e) {
 
         return new JsonResponse($e->getMessage(), $e->getCode());
+    }
+
+    protected function checkTitle(Request $request)
+    {
+        if ($request->title) {
+            return false;
+        }
+        return true;
+    }
+
+    protected function prepareGetDataForResponse($subfolders){
+        $titleList = array();
+        $idList = array();
+
+        for ($i=0; $i < count($subfolders); $i++){
+            array_push($titleList, $subfolders[$i]->title);
+            array_push($idList,$subfolders[$i]->id);
+        }
+        return array_merge($titleList,$idList);
+
     }
 }
