@@ -11,4 +11,7 @@ class Note extends Eloquent
     protected $fillable = [
         'caption', 'text', 'parent_id', 'user_id'
     ];
+    public function notes(){
+        return $this->hasMany(Note::class, 'parent_id');
+    }
 }
