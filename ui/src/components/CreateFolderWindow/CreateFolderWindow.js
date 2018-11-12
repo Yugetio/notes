@@ -8,11 +8,51 @@ class CreateFolderWindow extends Component {
         super(props);
         this.state = {
             CreateFolderOrNote: 0,
+            data: {
+                FolderName: '',
+            },
+            httpMethod: 'POST',
+            url: 'api/auth/folder/{id}'
         };
+        this.handleChange = this.handleChange.bind(this);
     };
 
     closeFolderWindow = () => {
         this.props.handleClick(this.state.CreateFolderOrNote)
+    };
+
+    receiveNameFolder = (name) => {
+        this.setState(
+            {
+                data:{
+                    FolderName: name,
+                }
+            }
+        );
+    };
+
+    handleChange(e) {
+        this.receiveNameFolder(e.target.value); // данні з input
+
+    };
+
+    createFolderQuery() {
+        fetch(this.state.url, {
+            method: this.state.httpMethod,
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                "Authorization": localStorage.getItem('Authorization')
+            },
+            body: JSON.stringify(this.state.data),
+        })
+            .then( response => {
+                if (response.status === 200 || response.status === 201) {
+                    localStorage.setItem('Authorization', response.headers.get('Authorization'));
+                    return response.json();
+                }
+            })
+
+            .catch( error => console.error(error) );
     };
 
     render() {
@@ -32,9 +72,15 @@ class CreateFolderWindow extends Component {
                             <input
                                 className="inputStyle"
                                 type="text"
-                                placeholder="Enter folder name"/></div>
+                                placeholder="Enter folder name"
+                                onChange={this.handleChange}
+                            />
+                        </div>
                     </div>
-                    <button className="button"><span>Create</span></button>
+                    <button
+                        className="button"
+                        onClick = {this.createFolderQuery.bind(this)}
+                    ><span>Create</span></button>
                 </div>
         }
 

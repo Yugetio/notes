@@ -12,7 +12,6 @@ class CreateFolderButton extends Component {
     };
 
 
-
 clickCreateFolder = () => {
     this.props.handleClick(this.state.CreateFolderOrNote)
 };

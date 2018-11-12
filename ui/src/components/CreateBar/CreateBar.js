@@ -12,48 +12,16 @@ class CreateBar extends Component {
         this.state = {
 
         };
-
     }
-    // componentDidMount() {
-    //     fetch('api/auth/me', {
-    //         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    //         headers: {
-    //             "Content-Type": "application/json; charset=utf-8",
-    //             "Authorization": localStorage.getItem('Authorization')
-    //         }
-    //     })
-    //         .then( response => {
-    //             if (response.status === 200 || response.status === 201) {
-    //                 localStorage.setItem('Authorization', response.headers.get('Authorization'));
-    //                 return response.json();
-    //             }
-    //         })
-    //         .then((data) => this.setState({
-    //             data: {
-    //                 user: data.email
-    //             }
-    //         }))
-    //         .catch( error => console.error(error) );
-    // }
-
-    createFolder() {
-
-    };
-
-    createNote() {
-
-    };
 
     render() {
         return (
             <div className='addFoldNote' >
                 <CreateFolderButton
                     handleClick = {this.props.handleClick}
-                    createFolder = {this.createFolder}
                 />
                 <CreateNoteButton
                     handleClick = {this.props.handleClick}
-                    createNote = {this.createNote}
                 />
             </div>
         );

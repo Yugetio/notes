@@ -19,7 +19,12 @@ class BaseInput extends Component {
     render() {
         return (
             <div className="input">
-                <input type={this.props.typePass} className="sameInput" placeholder={this.props.placeholder} onChange={this.handleChange} />
+                <input
+                    type={this.props.typePass}
+                    className="sameInput"
+                    placeholder={this.props.placeholder}
+                    onChange={this.handleChange}
+                />
             </div>
         );
     }

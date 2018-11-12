@@ -8,11 +8,69 @@ class CreateNoteWindow extends Component {
         super(props);
         this.state = {
             CreateFolderOrNote: 0,
+            data: {
+                title: '',
+                note: ''
+            },
+            httpMethod: 'POST',
+            url: 'api/auth/folder/{id}'
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeNote = this.handleChangeNote.bind(this);
+    };
+
+    receiveTitle = (title) => {
+        this.setState(
+            {
+                data:{
+                    title: title,
+                    note: this.state.data.note
+                }
+            }
+        );
+    };
+
+    receiveNote = (note) => {
+        this.setState(
+            {
+                data:{
+                    title: this.state.data.title,
+                    note: note
+                }
+            }
+        );
+    };
+
+    handleChange(e) {
+        this.receiveTitle(e.target.value); // данні з input
+
+    };
+
+    handleChangeNote(e) {
+        this.receiveNote(e.target.value);
     };
 
     closeNoteWindow = () => {
         this.props.handleClick(this.state.CreateFolderOrNote)
+    };
+
+    createNoteQuery() {
+        fetch(this.state.url, {
+            method: this.state.httpMethod,
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                "Authorization": localStorage.getItem('Authorization')
+            },
+            body: JSON.stringify(this.state.data),
+        })
+            .then( response => {
+                if (response.status === 200 || response.status === 201) {
+                    localStorage.setItem('Authorization', response.headers.get('Authorization'));
+                    return response.json();
+                }
+            })
+
+            .catch( error => console.error(error) );
     };
 
     render() {
@@ -29,15 +87,27 @@ class CreateNoteWindow extends Component {
                     </div>
                     <div className="inputFieldsNote">
                         <div className="inputTitle">
-                            <input className="inputStyle" type="text" placeholder="Enter title"/></div>
+                            <input
+                                className="inputStyle"
+                                type="text"
+                                placeholder="Enter title"
+                                onChange={this.handleChange}
+                            />
+                        </div>
                         <div className="inputText">
-                            <textarea className="inputStyle" placeholder="Enter your note" ></textarea>
+                            <textarea
+                                className="inputStyle"
+                                placeholder="Enter your note"
+                                onChange={this.handleChangeNote}
+                            >
+                            </textarea>
                         </div>
                     </div>
 
-
-
-                    <button className="button"><span>Create</span></button>
+                    <button
+                        className="button"
+                        onClick = {this.createNoteQuery.bind(this)}><span>Create</span>
+                    </button>
                 </div>
         }
 
