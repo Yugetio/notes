@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Folder extends Model
@@ -13,5 +14,13 @@ class Folder extends Model
 
     public function subfolders(){
         return $this->hasMany(Folder::class, 'parent_id');
+    }
+
+    public function serialize() {
+        return [
+            'title' => $this->title,
+            'id' => $this->id,
+            'parent_id' => $this->parent_id,
+        ];
     }
 }

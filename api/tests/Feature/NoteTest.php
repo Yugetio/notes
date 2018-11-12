@@ -18,7 +18,7 @@ class NoteTest extends TestCase
 //        var_dump($response->content());
 //        $this->assertEquals(201, $response->status());
 //    }
-
+//
 //    public function testUpdate()
 //    {
 //        $response = $this->put('/api/auth/note/5be2f9725fe29800882a00d2',
@@ -29,7 +29,7 @@ class NoteTest extends TestCase
 //        var_dump($response->Content());
 //        $this->assertEquals(200, $response->status());
 //    }
-
+//
 //    public function testGet(){
 //        $response = $this->get('/api/auth/note/5be2f9725fe29800882a00d2',
 //            [
@@ -38,7 +38,7 @@ class NoteTest extends TestCase
 //        //var_dump($response->getContent());
 //        $this->assertEquals(200, $response->status());
 //    }
-
+//
 //    public function testDelete()
 //    {
 //        $response = $this->delete('/api/auth/note/5be2f9725fe29800882a00d2');

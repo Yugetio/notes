@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Folder;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class FolderController extends Controller {
+class FolderController extends \App\Http\Controllers\Controller {
 
     public function create(Request $request, $parent_id){
 
@@ -15,15 +16,11 @@ class FolderController extends Controller {
             $folder = new Folder();
             $folder->user_id = $request->input('user_id');
             $folder->title = $request->input('title');
-
-            if ($parent_id == 0){
-                $folder->parent_id = null;
-            }else{
-                $folder->parent_id = $parent_id;
-            }
+            $folder->parent_id = $parent_id ?? null;
 
             $folder->save();
-            return new JsonResponse(['message' => 'Folder has created'], 200);
+
+            return new JsonResponse(['id' => $folder->id], 201);
         } catch (\Exception $e) {
             return $this->SendError($e);
         }
@@ -33,11 +30,11 @@ class FolderController extends Controller {
 
         try {
             $folder = Folder::find($id);
-
             $folder->title = $request->title;
+
             $folder->save();
 
-            return new JsonResponse(['message'=>'Folder has updated'], 200);
+            return new JsonResponse($folder->serialize(), 200);
         } catch (\Exception $e) {
             return  $this->SendError($e);
         }
@@ -47,14 +44,18 @@ class FolderController extends Controller {
 
         try{
             $folder = Folder::find($id);
-            $folderData = [
-              $folder->title, $folder->id, $folder->parent_id
-            ];
 
-            $subfolders = Folder::find($id)->subfolders;
-            $response = $this->prepareGetDataForResponse($subfolders);
+            $subfolders = [];
+            foreach ($folder->subfolders as $subfolder) {
+                $subfolders[] = $subfolder->serialize();
+            }
 
-            return new JsonResponse(['message'=>'Folder has sended', $response, $folderData], 200);
+            return new JsonResponse([
+                'message'=>'Folder has been sent',
+                'subfolders' => $subfolders,
+                'folderData' => $folder->serialize()
+            ], 200);
+
         }catch (\Exception $e) {
             return  $this->SendError($e);
         }
@@ -66,33 +67,11 @@ class FolderController extends Controller {
             $folder = Folder::find($id);
 
             $folder->delete();
-            return new JsonResponse(['message'=>'Folder has deleted'], 200);
+
+            return new JsonResponse(['message'=>'Folder has been deleted'], 200);
         } catch (\Exception $e) {
             return  $this->SendError($e);
         }
     }
-    protected static function SendError(\Exception $e) {
 
-        return new JsonResponse($e->getMessage(), $e->getCode());
-    }
-
-    protected function checkTitle(Request $request)
-    {
-        if ($request->title) {
-            return false;
-        }
-        return true;
-    }
-
-    protected function prepareGetDataForResponse($subfolders){
-        $titleList = array();
-        $idList = array();
-
-        for ($i=0; $i < count($subfolders); $i++){
-            array_push($titleList, $subfolders[$i]->title);
-            array_push($idList,$subfolders[$i]->id);
-        }
-        return array_merge($titleList,$idList);
-
-    }
 }
