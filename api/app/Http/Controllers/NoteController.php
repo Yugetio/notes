@@ -10,7 +10,7 @@ use \Exception;
 use \App\Http\MyExceptions\UserNotFoundException;
 
 
-class NoteController extends MyAbstractClass
+class NoteController extends \App\Http\Controllers\Controller
 {
     public function create(Request $request, $parent_id)
     {
@@ -18,14 +18,8 @@ class NoteController extends MyAbstractClass
             $note = new Note();
             $note->caption = $request->input('caption');
             $note->text = $request->input('text');
+            $note->parent_id = $parent_id ?? null;
 
-            if ($parent_id){
-                $note->parent_id= $parent_id;
-            } else {
-                $note->parent_id=null;
-            }
-
-            $note->user_id = $request->input('user_id');
             $note->save();
             return new JsonResponse(['message' => 'Note has created'], 201);
         } catch (\Exception $e) {
@@ -47,18 +41,22 @@ class NoteController extends MyAbstractClass
         }
         //Redirect::to('/notes');
     }
-    public function get(){
+    public function get($id){
 
         try{
-            $folder = Note::find($id);
-            $folderData = [
-                $folder->title, $folder->id, $folder->parent_id
-            ];
+            $note = Note::find($id);
 
-            $subnotes = Note::find($id)->notes;
-            $response = $this->prepareGetDataForResponse($subnotes);
+            $subnotes = [];
+            foreach ($note->notes as $notate) {
+                $subnotes[] = $notate->serialize();
+            }
 
-            return new JsonResponse(['message'=>'Folder has sended', $response, $folderData], 200);
+            return new JsonResponse([
+                'message'=>'Folder has been sent',
+                'subnotes' => $subnotes,
+                'note' => $note->serialize()
+            ], 200);
+
         }catch (\Exception $e) {
             return  $this->SendError($e);
         }
@@ -76,16 +74,4 @@ class NoteController extends MyAbstractClass
         //Redirect::to('/notes');
     }
 
-    protected function prepareGetDataForResponse($subnotes){
-        $titleList = array();
-        $idList = array();
-
-        for ($i=0; $i < count($subnotes); $i++){
-            array_push($idList,$subnotes[$i]->id);
-            array_push($titleList, $subnotes[$i]->caption);
-            array_push($textList, $subnotes[$i]->text);
-        }
-        return array_merge($titleList,$idList,$textList);
-
-    }
 }

@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class FolderController extends \App\Http\Controllers\Controller {
+class FolderController extends \App\Http\Controllers\Controller
+{
 
     public function create(Request $request, $parent_id){
 
         try {
             $folder = new Folder();
-            $folder->user_id = $request->input('user_id');
             $folder->title = $request->input('title');
             $folder->parent_id = $parent_id ?? null;
 
