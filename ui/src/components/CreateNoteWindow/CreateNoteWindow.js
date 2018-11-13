@@ -9,8 +9,9 @@ class CreateNoteWindow extends Component {
         this.state = {
             CreateFolderOrNote: 0,
             data: {
-                title: '',
-                note: ''
+                caption: '',
+                text: '',
+                parent_id: 0
             },
             httpMethod: 'POST',
             url: 'api/auth/folder/{id}'
@@ -19,23 +20,23 @@ class CreateNoteWindow extends Component {
         this.handleChangeNote = this.handleChangeNote.bind(this);
     };
 
-    receiveTitle = (title) => {
+    receiveTitle = (caption) => {
         this.setState(
             {
                 data:{
-                    title: title,
-                    note: this.state.data.note
+                    caption: caption,
+                    text: this.state.data.text
                 }
             }
         );
     };
 
-    receiveNote = (note) => {
+    receiveNote = (text) => {
         this.setState(
             {
                 data:{
-                    title: this.state.data.title,
-                    note: note
+                    caption: this.state.data.caption,
+                    text: text
                 }
             }
         );

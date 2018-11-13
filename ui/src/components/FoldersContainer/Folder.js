@@ -70,7 +70,7 @@ class Folder extends Component {
                         {
                             filteredNotes.map( (note) => {
                                 return (
-                                    <Link className='link' to='/note/id' key={note}>
+                                    <Link className='link' to='/note/{id}' key={note}>
                                         <div className='note'>{note} </div>
                                     </Link>
                                 )

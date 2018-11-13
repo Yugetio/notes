@@ -9,12 +9,26 @@ class CreateFolderWindow extends Component {
         this.state = {
             CreateFolderOrNote: 0,
             data: {
-                FolderName: '',
+                title: '',
+                parent_id: 0
             },
             httpMethod: 'POST',
             url: 'api/auth/folder/{id}'
         };
         this.handleChange = this.handleChange.bind(this);
+    };
+
+
+    resiveId = (id) => {
+      this.setState(
+          {
+              data:{
+                  title: this.state.FolderName,
+                  parent_id: this.props.location
+              }
+          }
+      )
+
     };
 
     closeFolderWindow = () => {
@@ -25,7 +39,8 @@ class CreateFolderWindow extends Component {
         this.setState(
             {
                 data:{
-                    FolderName: name,
+                    title: name,
+                    parent_id: this.state.parent_id
                 }
             }
         );
