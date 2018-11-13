@@ -14,13 +14,13 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
-//        Schema::connection('mongodb')->create('notes', function (Blueprint $collection) {
-//            $collection->increments('id');
-//            $collection->string('caption')->unique();
-//            $collection->longText('text');
-//            $collection->string('parent_id')->nullable();
-//            $collection->timestamps();
-//        });
+        Schema::connection('mongodb')->create('notes', function (Blueprint $collection) {
+            $collection->increments('id');
+            $collection->string('caption')->unique();
+            $collection->longText('text');
+            $collection->string('parent_id')->nullable();
+            $collection->timestamps();
+        });
     }
 
     /**
@@ -30,9 +30,9 @@ class CreateNotesTable extends Migration
      */
     public function down()
     {
-//        Schema::connection('mongodb')->table('notes', function (Blueprint $collection) {
-//            $collection->dropIfExists();
-//        });
+        Schema::connection('mongodb')->table('notes', function (Blueprint $collection) {
+            $collection->dropIfExists();
+        });
 
             //Schema::dropIfExists('notes');
     }
