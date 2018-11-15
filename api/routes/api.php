@@ -40,4 +40,5 @@ Route::group([
     Route::get('/folder/{id}', 'FolderController@get');
 
     Route::delete('/folder', 'FolderController@truncated');
+    Route::delete('/folder', 'NoteController@truncated');
 });

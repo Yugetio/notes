@@ -107,20 +107,29 @@ class FolderTest extends TestCase
         $this->assertEquals(500, $response->status());
     }
 
-    public function testDelete()
+    public function test_Delete_Successful()
     {
-        $response = $this->delete('/api/auth/folder/1');
+        $id = 1;
+        $response = $this->delete('/api/auth/folder/'.$id);
 
         //var_dump($response->getContent());
         $this->assertEquals(200, $response->status());
     }
 
-    public function testTruncated()
+    public function test_Delete_WrongId_Error()
     {
-        $response = $this->delete('/api/auth/folder');
+        $id = 'wrong';
+        $response = $this->delete('/api/auth/folder/'.$id);
 
         //var_dump($response->getContent());
-        $this->assertEquals(200, $response->status());
+        $this->assertEquals(500, $response->status());
     }
+//    public function testTruncated()
+//    {
+//        $response = $this->delete('/api/auth/folder');
+//
+//        //var_dump($response->getContent());
+//        $this->assertEquals(200, $response->status());
+//    }
 }
 //FOR STARTING TESTS USE --- vendor/bin/phpunit !!!

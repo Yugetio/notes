@@ -41,6 +41,7 @@ class NoteController extends \App\Http\Controllers\Controller
         }
         //Redirect::to('/notes');
     }
+
     public function get($id){
 
         try{
@@ -61,6 +62,7 @@ class NoteController extends \App\Http\Controllers\Controller
             return  $this->SendError($e);
         }
     }
+
     public function delete($id)
     {
         try {
@@ -74,4 +76,16 @@ class NoteController extends \App\Http\Controllers\Controller
         //Redirect::to('/notes');
     }
 
+    public function truncated(){ //for testing only
+        $id = 1;
+        try {
+            $note = Note::find($id);
+
+                $note->truncate();
+
+            return new JsonResponse(['message'=>'Note has been truncated'], 200);
+        } catch (\Exception $e) {
+            return  $this->SendError($e);
+        }
+    }
 }
