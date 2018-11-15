@@ -73,5 +73,17 @@ class FolderController extends \App\Http\Controllers\Controller
             return  $this->SendError($e);
         }
     }
+    public function truncated($id){ //for testing only
+
+        try {
+            $folder = Folder::find($id);
+
+            $folder->truncate();
+
+            return new JsonResponse(['message'=>'Folder has been deleted'], 200);
+        } catch (\Exception $e) {
+            return  $this->SendError($e);
+        }
+    }
 
 }

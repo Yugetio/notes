@@ -38,4 +38,6 @@ Route::group([
     Route::put('/folder/{id}', 'FolderController@update');
     Route::delete('/folder/{id}', 'FolderController@deleted');
     Route::get('/folder/{id}', 'FolderController@get');
+
+    Route::delete('/folder', 'FolderController@truncated');
 });

@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use \Exception;
 use \App\Http\MyExceptions\UserNotFoundException;
 
-
 class NoteController extends \App\Http\Controllers\Controller
 {
+
     public function create(Request $request, $parent_id)
     {
         try {
