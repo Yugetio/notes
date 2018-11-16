@@ -81,7 +81,7 @@ class NoteController extends \App\Http\Controllers\Controller
         try {
             $note = Note::find($id);
 
-                $note->truncate();
+            $note->truncate();
 
             return new JsonResponse(['message'=>'Note has been truncated'], 200);
         } catch (\Exception $e) {
