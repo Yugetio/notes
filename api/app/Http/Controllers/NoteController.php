@@ -76,12 +76,13 @@ class NoteController extends \App\Http\Controllers\Controller
         //Redirect::to('/notes');
     }
 
-    public function truncated(){ //for testing only
-        $id = 1;
-        try {
-            $note = Note::find($id);
+    public function truncated(){
 
-            $note->truncate();
+        try {
+            $note = Note::orderBy('created_at', 'desc')->first();
+
+            $note->delete();
+           // $note->truncate(); //delete all records on DB
 
             return new JsonResponse(['message'=>'Note has been truncated'], 200);
         } catch (\Exception $e) {

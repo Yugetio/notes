@@ -23,6 +23,7 @@ Route::group([
 
 ], function () {
     Route::put('/user', 'Auth\UserController@updateUser');
+    Route::get('/user', 'Auth\UserController@deleteUser');
     Route::delete('/user', 'Auth\UserController@deleteUser');
 
     Route::post('/logout', 'Auth\LoginController@logout');
@@ -40,5 +41,6 @@ Route::group([
     Route::get('/folder/{id}', 'FolderController@get');
 
     Route::delete('/folder', 'FolderController@truncated');
-    Route::delete('/folder', 'NoteController@truncated');
+    Route::delete('/note', 'NoteController@truncated');
+    Route::delete('/usr', 'Auth\UserController@truncated');
 });

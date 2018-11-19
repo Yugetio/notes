@@ -74,12 +74,13 @@ class FolderController extends \App\Http\Controllers\Controller
         }
     }
 
-    public function truncated(){ //for testing only
-        $id = 1;
-        try {
-            $folder = Folder::find($id);
+    public function truncated(){
 
-            $folder->truncate();
+        try {
+              $folder = Folder::orderBy('created_at', 'desc')->first();
+
+              $folder->delete();
+//            $folder->truncate(); //delete all records on DB
 
             return new JsonResponse(['message'=>'Folder has been truncated'], 200);
         } catch (\Exception $e) {
