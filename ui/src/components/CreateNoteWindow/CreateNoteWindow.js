@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './cteateNoteWindow.css';
+import {createNameNote, createTextNote} from '../../actions'
 
 
 class CreateNoteWindow extends Component {

@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import createWindow from './createWindow'
+import windowReducer from './createWindow'
 
 const allReducers = combineReducers({
-   window: createWindow
+   // window: windowReducer,
 });
 
 export default allReducers;
