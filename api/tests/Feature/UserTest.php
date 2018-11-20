@@ -127,16 +127,13 @@ class UserTest extends TestCase
 //        var_dump($response->getContent());
 //        $this->assertEquals(500, $response->status());
 //    }
-
-      public function testTruncated()
-      {
-          $response = $this->delete('/api/auth/usr',
-            [
-
-            ]);
-          //var_dump($response->getContent());
-          $this->assertEquals(200, $response->status());
-      }
+//
+//      public function testTruncated() //for testing only
+//      {
+//          $response = $this->delete('/api/auth/usr');
+//          //var_dump($response->getContent());
+//          $this->assertEquals(200, $response->status());
+//      }
 
 //    public function test_Login_Seccessful()
 //    {

@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Http\Controllers\MyAbstractClass;
 use Illuminate\Http\JsonResponse;
 use JWTAuth;
 
@@ -142,8 +141,7 @@ class UserController extends Controller
         try {
             $user = MyUser::orderBy('created_at', 'desc')->first();
 
-//            $folder->delete();
-            $user->truncate(); //delete all records on DB
+            $user->delete();
 
             return new JsonResponse(['message'=>'Folder has been truncated'], 200);
         } catch (\Exception $e) {

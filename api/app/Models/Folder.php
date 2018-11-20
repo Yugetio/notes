@@ -5,12 +5,26 @@ namespace App\Models;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Folder extends Model
 {
     protected $table = 'folders';
     protected $fillable = [
          'parent_id', 'title'
     ];
+
+    public function setData($parent_id, $title){
+        $model = new Folder();
+
+        $model->title = $title;
+        $model->parent_id = $parent_id;
+
+        return (bool)$model->save();
+    }
+
+    public function loadData($parent_id, $title){
+
+    }
 
     public function subfolders(){
         return $this->hasMany(Folder::class, 'parent_id');
@@ -23,4 +37,5 @@ class Folder extends Model
             'parent_id' => $this->parent_id,
         ];
     }
+
 }
