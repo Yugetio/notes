@@ -15,6 +15,8 @@ const initialState = {
             return {...state, caption: action.title};
         case ACTION_CREATE_TEXT_NOTE:
             return {...state, caption: action.text};
+        default:
+            return state
     }
 };
 
