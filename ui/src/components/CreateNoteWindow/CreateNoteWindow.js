@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
 import './cteateNoteWindow.css';
 import {createNameNote, createTextNote} from '../../actions'
+import {connect} from 'react-redux';
 
 
 class CreateNoteWindow extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            CreateFolderOrNote: 0,
-            data: {
-                caption: '',
-                text: '',
-                parent_id: 0
-            },
-            httpMethod: 'POST',
-            url: 'api/auth/folder/{id}'
-        };
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeNote = this.handleChangeNote.bind(this);
     };
@@ -117,4 +108,12 @@ class CreateNoteWindow extends Component {
     };
 }
 
-export default CreateNoteWindow;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        folder: state.window.data.caption
+
+    }
+};
+
+export default connect(mapStateToProps)(CreateNoteWindow);

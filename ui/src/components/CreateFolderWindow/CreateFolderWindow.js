@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import '../CreateNoteWindow/cteateNoteWindow.css';
-import {createNameFolder} from '../../actions'
-
+import {connect} from 'react-redux';
+import {createNameNote, createTextNote} from '../../actions'
 
 class CreateFolderWindow extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            CreateFolderOrNote: 0,
-            data: {
-                title: '',
-                parent_id: 0
-            },
-            httpMethod: 'POST',
-            url: 'api/auth/folder/{id}'
-        };
         this.handleChange = this.handleChange.bind(this);
     };
 
@@ -41,7 +32,7 @@ class CreateFolderWindow extends Component {
             {
                 data:{
                     title: name,
-                    parent_id: this.state.parent_id
+                    parent_id: this.state.window.data.parent_id
                 }
             }
         );
@@ -71,8 +62,9 @@ class CreateFolderWindow extends Component {
             .catch( error => console.error(error) );
     };
 
-    render() {
 
+
+    render() {
         let isFolderWindow;
         if (this.props.CreateFolder === 0 || this.props.CreateFolder === 2) {
             isFolderWindow = null;
@@ -89,19 +81,28 @@ class CreateFolderWindow extends Component {
                                 className="inputStyle"
                                 type="text"
                                 placeholder="Enter folder name"
-                                onChange={this.handleChange}
-                            />
+                                onChange={this.handleChange}/>
                         </div>
                     </div>
                     <button
                         className="button"
-                        onClick = {this.createFolderQuery.bind(this)}
-                    ><span>Create</span></button>
+                        onClick = {this.createFolderQuery.bind(this)}>
+                        <span>Create</span></button>
                 </div>
+
         }
 
         return isFolderWindow;
+
     };
 }
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        title: state.window.data.title,
+        CreateFolderOrNote: state.window.CreateFolderOrNote,
+        parent_id: state.window.parent_id
+    }
+};
 
-export default CreateFolderWindow;
+export default connect(mapStateToProps)(CreateFolderWindow);

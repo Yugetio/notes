@@ -1,23 +1,28 @@
-import  { ACTION_CREATE_NAME_FOLDER, ACTION_CREATE_NAME_NOTE, ACTION_CREATE_TEXT_NOTE } from "../constants/index";
+import  { ACTION_CREATE_FOLDER, ACTION_CREATE_NOTE, ACTION_CLOSED_WINDOW } from "../constants/index";
 
 const initialState = {
-    title: '',
-    caption: '',
-    text: '',
-    parent_id: 0
+    CreateFolderOrNote: 0,
+    data: {
+        title: '',
+        parent_id: 0,
+        caption: '',
+        text: ''
+    },
+    httpMethod: 'POST',
+    url: 'api/auth/folder/{id}'
 };
 
- const windowReducer = (state = initialState, action) => {
+ const createFolderNoteReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ACTION_CREATE_NAME_FOLDER:
+        case ACTION_CREATE_FOLDER:
             return {...state, caption: action.caption};
-        case ACTION_CREATE_NAME_NOTE:
-            return {...state, caption: action.title};
-        case ACTION_CREATE_TEXT_NOTE:
-            return {...state, caption: action.text};
+        case ACTION_CREATE_NOTE:
+            return {...state, caption: action.data.title};
+        case ACTION_CLOSED_WINDOW:
+            return {...state, caption: action.CreateFolderOrNote};
         default:
             return state
     }
 };
 
-export default windowReducer;
+export default createFolderNoteReducer;
