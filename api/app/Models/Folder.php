@@ -5,7 +5,6 @@ namespace App\Models;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Folder extends Model
 {
     protected $table = 'folders';
@@ -13,17 +12,39 @@ class Folder extends Model
          'parent_id', 'title'
     ];
 
-    public function setData($parent_id, $title){
+    public function setData($parent_id,$title){
+
         $model = new Folder();
 
         $model->title = $title;
         $model->parent_id = $parent_id;
-
-        return (bool)$model->save();
+        try{
+           $model->save();
+           return true;
+        }catch (\Exception $e){
+           return false;
+        }
     }
 
-    public function loadData($parent_id, $title){
+    public function loadData($title){
 
+        $model = Folder::where('title', '=', $title)->get();
+
+        if ($model === $title){
+            return true; }
+        else{ return false; }
+    }
+
+    public function deleteData($title){
+
+        $model = Folder::orderBy('id', 'desc')->first();
+
+        try{
+            $model->delete();
+            return true;
+        }catch (\Exception $e){
+            return false;
+        }
     }
 
     public function subfolders(){
