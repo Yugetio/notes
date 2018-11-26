@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import '../CreateNoteWindow/cteateNoteWindow.css';
 import {connect} from 'react-redux';
-import {createNameNote, createTextNote} from '../../actions'
+import {receiveNameFolder, createTextNote} from '../../actions'
+import {bindActionCreators} from 'redux';
 
 class CreateFolderWindow extends Component {
 
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
     };
 
 
@@ -32,17 +32,11 @@ class CreateFolderWindow extends Component {
             {
                 data:{
                     title: name,
-                    parent_id: this.state.window.data.parent_id
+                    parent_id: this.state.parent_id
                 }
             }
         );
     };
-
-    handleChange(e) {
-        this.receiveNameFolder(e.target.value); // данні з input
-
-    };
-
     createFolderQuery() {
         fetch(this.state.url, {
             method: this.state.httpMethod,
@@ -65,6 +59,7 @@ class CreateFolderWindow extends Component {
 
 
     render() {
+       const dispatch = this.props.dispatch;
         let isFolderWindow;
         if (this.props.CreateFolder === 0 || this.props.CreateFolder === 2) {
             isFolderWindow = null;
@@ -81,7 +76,10 @@ class CreateFolderWindow extends Component {
                                 className="inputStyle"
                                 type="text"
                                 placeholder="Enter folder name"
-                                onChange={this.handleChange}/>
+                                onChange={(e) => {
+                                    receiveNameFolder(e.target.value);
+                                }}
+                            />
                         </div>
                     </div>
                     <button
@@ -96,13 +94,19 @@ class CreateFolderWindow extends Component {
 
     };
 }
-const mapStateToProps = (state) => {
-    console.log(state);
+const putStateToProps = (state) => {  //  метод який записує данні з state в props компонента
+console.log(state);
     return {
-        title: state.window.data.title,
-        CreateFolderOrNote: state.window.CreateFolderOrNote,
-        parent_id: state.window.parent_id
+        httpMethod: state.window.httpMethod,
+        url: state.window.url,
+        title: state.window.data.title
     }
 };
 
-export default connect(mapStateToProps)(CreateFolderWindow);
+const putActionsToProps = (dispatch) => {
+    return{
+        receiveNameFolder: bindActionCreators(receiveNameFolder, dispatch)
+    }
+};
+
+export default connect(putStateToProps, putActionsToProps)(CreateFolderWindow);

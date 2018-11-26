@@ -1,4 +1,4 @@
-import  { ACTION_CREATE_FOLDER, ACTION_CREATE_NOTE, ACTION_CLOSED_WINDOW } from "../constants/index";
+import  { ACTION_RECEIVE_NAME_FOLDER, ACTION_CREATE_NOTE, ACTION_CLOSED_WINDOW } from "../constants/index";
 
 const initialState = {
     CreateFolderOrNote: 0,
@@ -14,12 +14,12 @@ const initialState = {
 
  const createFolderNoteReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ACTION_CREATE_FOLDER:
-            return {...state, caption: action.caption};
+        case ACTION_RECEIVE_NAME_FOLDER:
+            return {...state, title: action.payload};
         case ACTION_CREATE_NOTE:
-            return {...state, caption: action.data.title};
+            return {...state, caption: action.payload};
         case ACTION_CLOSED_WINDOW:
-            return {...state, caption: action.CreateFolderOrNote};
+            return {...state, caption: action.payload};
         default:
             return state
     }

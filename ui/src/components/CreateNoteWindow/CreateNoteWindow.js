@@ -109,7 +109,7 @@ class CreateNoteWindow extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+
     return {
         folder: state.window.data.caption
 

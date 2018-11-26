@@ -1,23 +1,23 @@
-import  { ACTION_CREATE_FOLDER, ACTION_CREATE_NOTE, ACTION_CLOSED_WINDOW } from "../constants/index";
+import  { ACTION_RECEIVE_NAME_FOLDER, ACTION_CREATE_NOTE, ACTION_CLOSED_WINDOW } from "../constants/index";
 
-export const createNameFolder = (nameFolder) => {
+export const receiveNameFolder = (title) => {
     return {
-        type: ACTION_CREATE_FOLDER,
-        caption: nameFolder
+        type: ACTION_RECEIVE_NAME_FOLDER,
+        payload: title
     }
 };
 
 export const createNameNote = (nameNote) => {
     return {
         type: ACTION_CREATE_NOTE,
-        caption: nameNote
+        payload: nameNote
     }
 };
 
 export const createTextNote = (textNote) => {
     return {
         type: ACTION_CLOSED_WINDOW,
-        caption: textNote
+        payload: textNote
     }
 };
 

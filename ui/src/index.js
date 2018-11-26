@@ -9,9 +9,9 @@ import allReducers from "./reducers";
 
 const store = createStore(allReducers, window._REDUX_DEVTOOLS_EXTENSION_ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-store.subscribe( () => {
-    console.log('subscribe', store.getState());
-});
+// store.subscribe( () => {
+//     console.log('subscribe', store.getState());
+// });
 
 
 ReactDOM.render(
