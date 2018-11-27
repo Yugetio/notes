@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux';
-import createFolderNote from './createFolderNoteWindow'
+import createFolderNote from './windowToCreateFolderOrNote'
+import folderContainer from './folderContainer'
 
 const allReducers = combineReducers({
-   window: createFolderNote,
+     window: createFolderNote,
+     folderContainer: folderContainer
 });
 
 export default allReducers;

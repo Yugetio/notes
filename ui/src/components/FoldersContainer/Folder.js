@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BackButton from '../BackButton/BackButton';
 import CreateBar from '../CreateBar/CreateBar';
-import CreateFolderWindow from '../CreateFolderWindow/CreateFolderWindow';
-import CreateNoteWindow from '../CreateNoteWindow/CreateNoteWindow';
+import CreateFolderWindow from '../WindowToCreateFolder/CreateFolderWindow';
+import CreateNoteWindow from '../WindowToCreateNote/CreateNoteWindow';
 
 import './folder.css';
 

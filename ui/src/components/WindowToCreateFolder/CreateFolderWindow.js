@@ -1,50 +1,19 @@
 import React, { Component } from 'react';
-import '../CreateNoteWindow/cteateNoteWindow.css';
+import '../WindowToCreateNote/cteateNoteWindow.css';
 import {connect} from 'react-redux';
-import {receiveNameFolder, createTextNote} from '../../actions'
+import {receiveNameFolder, closeWindow} from '../../actions'
 import {bindActionCreators} from 'redux';
 
 class CreateFolderWindow extends Component {
 
-    constructor(props) {
-        super(props);
-    };
-
-
-    resiveId = (id) => {
-      this.setState(
-          {
-              data:{
-                  title: this.state.FolderName,
-                  parent_id: this.props.location
-              }
-          }
-      )
-
-    };
-
-    closeFolderWindow = () => {
-        this.props.handleClick(this.state.CreateFolderOrNote)
-    };
-
-    receiveNameFolder = (name) => {
-        this.setState(
-            {
-                data:{
-                    title: name,
-                    parent_id: this.state.parent_id
-                }
-            }
-        );
-    };
     createFolderQuery() {
-        fetch(this.state.url, {
-            method: this.state.httpMethod,
+        fetch(this.url, {
+            method: this.httpMethod,
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": localStorage.getItem('Authorization')
             },
-            body: JSON.stringify(this.state.data),
+            body: JSON.stringify(this.data),
         })
             .then( response => {
                 if (response.status === 200 || response.status === 201) {
@@ -59,16 +28,21 @@ class CreateFolderWindow extends Component {
 
 
     render() {
-       const dispatch = this.props.dispatch;
+        console.log(this.props);
+        const {receiveNameFolder, closeWindow} = this.props;
         let isFolderWindow;
-        if (this.props.CreateFolder === 0 || this.props.CreateFolder === 2) {
+        if (this.props.windowToCreate === 0 || this.props.windowToCreate === 2) {
             isFolderWindow = null;
         } else {
             isFolderWindow =
                 <div className="create">
                     <div className="name">
                         <p>Create Folder</p>
-                        <p onClick={this.closeFolderWindow}>&#10008;</p>
+                        <p onClick={() => {
+                            closeWindow(0);
+                        }}
+
+                        >&#10008;</p>
                     </div>
                     <div className="inputFieldsFolder">
                         <div className="inputTitleFolder" >
@@ -76,7 +50,7 @@ class CreateFolderWindow extends Component {
                                 className="inputStyle"
                                 type="text"
                                 placeholder="Enter folder name"
-                                onChange={(e) => {
+                                onClick={(e) => {
                                     receiveNameFolder(e.target.value);
                                 }}
                             />
@@ -99,13 +73,15 @@ console.log(state);
     return {
         httpMethod: state.window.httpMethod,
         url: state.window.url,
-        title: state.window.data.title
+        title: state.window.data.title,
+        windowToCreate: state.window.windowToCreate
     }
 };
 
 const putActionsToProps = (dispatch) => {
     return{
-        receiveNameFolder: bindActionCreators(receiveNameFolder, dispatch)
+        receiveNameFolder: bindActionCreators(receiveNameFolder, dispatch),
+        closeWindow: bindActionCreators(closeWindow, dispatch)
     }
 };
 

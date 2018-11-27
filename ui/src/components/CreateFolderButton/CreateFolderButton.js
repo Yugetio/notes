@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
 import './createFolder.css';
-
+import {openWindowToCreate} from '../../actions/index'
+import {bindActionCreators} from "redux";
+import connect from "react-redux/es/connect/connect";
 
 class CreateFolderButton extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            CreateFolderOrNote: 1,
-        };
-    };
-
-
-clickCreateFolder = () => {
-    this.props.handleClick(this.state.CreateFolderOrNote)
-};
-
-
     render() {
+        const {openWindowToCreate} = this.props;
         return (
             <div
                 className="field"
-                onClick={this.clickCreateFolder}
-            >
+                onClick={() => {
+                    openWindowToCreate(1);
+                }}>
                 <p className='createFolder'> </p>
             </div>
         );
     };
 }
 
-export default CreateFolderButton;
+const putStateToProps = (state) => {
+    console.log(state);
+    return {
+        windowToCreate: state.window.windowToCreate
+    }
+};
+
+const putActionsToProps = (dispatch) => {
+    return{
+        openWindowToCreate: bindActionCreators(openWindowToCreate, dispatch)
+    }
+};
+
+export default connect(putStateToProps, putActionsToProps)(CreateFolderButton);

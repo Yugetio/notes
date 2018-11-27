@@ -17,9 +17,7 @@ class CreateBar extends Component {
     render() {
         return (
             <div className='addFoldNote' >
-                <CreateFolderButton
-                    handleClick = {this.props.handleClick}
-                />
+                <CreateFolderButton/>
                 <CreateNoteButton
                     handleClick = {this.props.handleClick}
                 />

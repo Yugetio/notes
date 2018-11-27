@@ -1,7 +1,7 @@
-import  { ACTION_RECEIVE_NAME_FOLDER, ACTION_CREATE_NOTE, ACTION_CLOSED_WINDOW } from "../constants/index";
+import  { ACTION_RECEIVE_NAME_FOLDER, ACTION_OPEN_WINDOW_TO_CREATE, ACTION_CLOSED_WINDOW } from "../constants/index";
 
 const initialState = {
-    CreateFolderOrNote: 0,
+    windowToCreate: 0,
     data: {
         title: '',
         parent_id: 0,
@@ -16,10 +16,10 @@ const initialState = {
     switch (action.type) {
         case ACTION_RECEIVE_NAME_FOLDER:
             return {...state, title: action.payload};
-        case ACTION_CREATE_NOTE:
-            return {...state, caption: action.payload};
+        case ACTION_OPEN_WINDOW_TO_CREATE:
+            return {...state, windowToCreate: action.payload};
         case ACTION_CLOSED_WINDOW:
-            return {...state, caption: action.payload};
+            return {...state, windowToCreate: action.payload};
         default:
             return state
     }
