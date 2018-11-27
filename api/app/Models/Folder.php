@@ -35,7 +35,7 @@ class Folder extends Model
         else{ return false; }
     }
 
-    public function deleteData($title){
+    public function deleteData(){
 
         $model = Folder::orderBy('id', 'desc')->first();
 
