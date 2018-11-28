@@ -32,16 +32,16 @@ class NoteModelTest extends TestCase
 //        $this->assertTrue (!$model->setData($parent_id, $caption, $text));
 //    }
 
-    public function test_Load_Successful(){
-
-        $caption = 'Save_1';
-        $model = new Note();
-        $this->assertTrue($model->loadData($caption));
-    }
-
+//    public function test_Load_Successful(){
+//
+//        $caption = 'Save_1';
+//        $model = new Note();
+//        $this->assertTrue($model->loadData($caption));
+//    }
+//
 //    public function test_Load_WrongTitle_Error(){
 //
-//        $caption = 'Save_';
+//        $caption = 'Save';
 //        $model = new Note();
 //        $this->assertTrue(!$model->loadData($caption));
 //    }
@@ -52,9 +52,5 @@ class NoteModelTest extends TestCase
 //        $this->assertTrue($model->deleteData());
 //    }
 //
-//    public function test_Delete_WrongTitle_Error(){
-//
-//        $model = new Note();
-//        $this->assertTrue(!$model->deleteData());
-//    }
+
 }

@@ -12,9 +12,11 @@ class Note extends Eloquent
     protected $fillable = [
         'caption', 'text', 'parent_id'
     ];
+
     public function notes(){
         return $this->hasMany(Note::class, 'parent_id');
     }
+
     public function serialize() {
         return [
             'caption' => $this->caption,
@@ -44,12 +46,7 @@ class Note extends Eloquent
 
         $model = Note::where('caption', '=', $caption)->get();
 
-        $model = array($model);
-//        var_dump($model);
-        echo "________".sizeof($model);
-        if (sizeof($model)){
-            return false; }
-        else{ return true; }
+        if ( strlen((string)$model) > 2){return true ;}else{ return false; }
     }
 
     public function deleteData(){
