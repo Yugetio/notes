@@ -33,12 +33,6 @@ class Folder extends Component {
         };
     }
 
-    handleClick = (value) => {
-        this.setState({ CreateFolderOrNote: value })
-    };
-
-
-
     render() {
         let filteredFolders = this.state.data.folders.filter(
             (folder) => {
@@ -77,15 +71,9 @@ class Folder extends Component {
                             })
                         }
                         </div>
-                    <CreateFolderWindow
-                        CreateFolder = {this.state.CreateFolderOrNote}
-                        handleClick = {this.handleClick}
-                    />
-                    <CreateNoteWindow
-                        CreateNote = {this.state.CreateFolderOrNote}
-                        handleClick = {this.handleClick}
-                    />
-                    <CreateBar handleClick = {this.handleClick}/>
+                    <CreateFolderWindow/>
+                    <CreateNoteWindow/>
+                    <CreateBar/>
                 </div>
 
             </div>

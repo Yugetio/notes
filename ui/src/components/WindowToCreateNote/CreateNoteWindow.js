@@ -1,51 +1,10 @@
 import React, { Component } from 'react';
 import './cteateNoteWindow.css';
-import {createNameNote, createTextNote} from '../../actions'
+import {closeWindow} from '../../actions'
 import {connect} from 'react-redux';
-
+import {bindActionCreators} from "redux";
 
 class CreateNoteWindow extends Component {
-
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleChangeNote = this.handleChangeNote.bind(this);
-    };
-
-    receiveTitle = (caption) => {
-        this.setState(
-            {
-                data:{
-                    caption: caption,
-                    text: this.state.data.text
-                }
-            }
-        );
-    };
-
-    receiveNote = (text) => {
-        this.setState(
-            {
-                data:{
-                    caption: this.state.data.caption,
-                    text: text
-                }
-            }
-        );
-    };
-
-    handleChange(e) {
-        this.receiveTitle(e.target.value); // данні з input
-
-    };
-
-    handleChangeNote(e) {
-        this.receiveNote(e.target.value);
-    };
-
-    closeNoteWindow = () => {
-        this.props.handleClick(this.state.CreateFolderOrNote)
-    };
 
     createNoteQuery() {
         fetch(this.state.url, {
@@ -54,29 +13,31 @@ class CreateNoteWindow extends Component {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": localStorage.getItem('Authorization')
             },
-            body: JSON.stringify(this.state.data),
+            body: JSON.stringify(this.state.dataFolder),
         })
             .then( response => {
                 if (response.status === 200 || response.status === 201) {
                     localStorage.setItem('Authorization', response.headers.get('Authorization'));
                     return response.json();
                 }
+
             })
 
             .catch( error => console.error(error) );
+        console.log(JSON.stringify(this.state.dataFolder))
     };
 
     render() {
-
+        const {closeWindow} = this.props;
         let isNoteWindow;
-        if (this.props.CreateNote === 0 || this.props.CreateNote === 1 ) {
+        if (this.props.windowForCreating === 0 || this.props.windowForCreating === 1 ) {
             isNoteWindow = null;
         } else {
             isNoteWindow =
                 <div className="create">
                     <div className="name">
                         <p>Create Note</p>
-                        <p onClick={this.closeNoteWindow}>&#10008;</p>
+                        <p onClick={() => {closeWindow(0);}}>&#10008;</p>
                     </div>
                     <div className="inputFieldsNote">
                         <div className="inputTitle">
@@ -103,17 +64,23 @@ class CreateNoteWindow extends Component {
                     </button>
                 </div>
         }
-
         return isNoteWindow;
     };
 }
 
-const mapStateToProps = (state) => {
-
+const putStateToProps = (state) => {
     return {
-        folder: state.window.data.caption
-
+        httpMethod: state.window.httpMethod,
+        url: state.window.url,
+        title: state.window.dataFolder.title,
+        windowForCreating: state.window.windowForCreating
     }
 };
 
-export default connect(mapStateToProps)(CreateNoteWindow);
+const putActionsToProps = (dispatch) => {
+    return{
+        closeWindow: bindActionCreators(closeWindow, dispatch)
+    }
+};
+
+export default connect(putStateToProps, putActionsToProps)(CreateNoteWindow);

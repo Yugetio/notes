@@ -21,9 +21,8 @@ class CreateFolderButton extends Component {
 }
 
 const putStateToProps = (state) => {
-    console.log(state);
     return {
-        windowToCreate: state.window.windowToCreate
+        windowForCreating: state.window.windowForCreating
     }
 };
 

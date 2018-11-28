@@ -7,13 +7,13 @@ import {bindActionCreators} from 'redux';
 class CreateFolderWindow extends Component {
 
     createFolderQuery() {
-        fetch(this.url, {
-            method: this.httpMethod,
+        fetch(this.props.url, {
+            method: this.props.httpMethod,
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": localStorage.getItem('Authorization')
             },
-            body: JSON.stringify(this.data),
+            body: JSON.stringify(this.props.dataFolder),
         })
             .then( response => {
                 if (response.status === 200 || response.status === 201) {
@@ -23,15 +23,14 @@ class CreateFolderWindow extends Component {
             })
 
             .catch( error => console.error(error) );
+            console.log(JSON.stringify(this.props.dataFolder))
     };
 
 
-
     render() {
-        console.log(this.props);
         const {receiveNameFolder, closeWindow} = this.props;
         let isFolderWindow;
-        if (this.props.windowToCreate === 0 || this.props.windowToCreate === 2) {
+        if (this.props.windowForCreating === 0 || this.props.windowForCreating === 2) {
             isFolderWindow = null;
         } else {
             isFolderWindow =
@@ -73,8 +72,8 @@ console.log(state);
     return {
         httpMethod: state.window.httpMethod,
         url: state.window.url,
-        title: state.window.data.title,
-        windowToCreate: state.window.windowToCreate
+        windowForCreating: state.window.windowForCreating,
+        dataFolder: state.window.dataFolder
     }
 };
 

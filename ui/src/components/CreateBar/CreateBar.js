@@ -6,21 +6,11 @@ import './createBar.css';
 import {SendRequestWithAuthorization} from "../../ManagerRequests";
 
 class CreateBar extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-
-        };
-    }
-
     render() {
         return (
             <div className='addFoldNote' >
                 <CreateFolderButton/>
-                <CreateNoteButton
-                    handleClick = {this.props.handleClick}
-                />
+                <CreateNoteButton/>
             </div>
         );
     }

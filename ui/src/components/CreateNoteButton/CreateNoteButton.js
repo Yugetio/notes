@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
-
 import './createNote.css';
+import {bindActionCreators} from "redux";
+import {openWindowToCreate} from "../../actions";
+import connect from "react-redux/es/connect/connect";
 
 class CreateNoteButton extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            CreateFolderOrNote: 2,
-        };
-    };
-
-    clickCreateNote = () => {
-        this.props.handleClick(this.state.CreateFolderOrNote)
-    };
-
     render() {
+        const {openWindowToCreate} = this.props;
         return (
             <div
                 className="field"
-                 onClick={this.clickCreateNote}
+                 onClick={() => {
+                     openWindowToCreate(2);
+                 }}
             >
                 <p className='createNotes'> </p>
             </div>
@@ -27,4 +21,16 @@ class CreateNoteButton extends Component {
     };
 }
 
-export default CreateNoteButton;
+const putStateToProps = (state) => {
+    return {
+        windowForCreating: state.window.windowForCreating
+    }
+};
+
+const putActionsToProps = (dispatch) => {
+    return{
+        openWindowToCreate: bindActionCreators(openWindowToCreate, dispatch)
+    }
+};
+
+export default connect(putStateToProps, putActionsToProps)(CreateNoteButton);
