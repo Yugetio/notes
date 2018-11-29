@@ -30,9 +30,7 @@ class Folder extends Model
 
         $model = Folder::where('title', '=', $title)->get();
 
-        if ($model === $title){
-            return true; }
-        else{ return false; }
+        if ( strlen((string)$model) > 2){return true ;}else{ return false; }
     }
 
     public function deleteData(){
