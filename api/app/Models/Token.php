@@ -20,14 +20,19 @@ class Token extends Model
     {
         return $this->belongsTo('App\Models\MyUser');
     }
-    public function setData($email,$password){
+    public function setData($user_id, $access_token, $refresh_token, $expires_in){
 
         $model = new Token();
 
-        $model->email = $email;
-        $model->password = $password;
+        $model->user_id = $user_id;
+        $model->expires_in = $expires_in;
+        $model->access_token = $access_token;
+        $model->refresh_token = $refresh_token;
+
+        $model->save();
+
         try{
-            $model->save();
+
             return true;
         }catch (\Exception $e){
             return false;

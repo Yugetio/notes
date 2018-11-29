@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-use mysql_xdevapi\Exception;
+use \Exception;
 
 class Note extends Eloquent
 {
@@ -28,13 +28,11 @@ class Note extends Eloquent
 
         $model = new Note();
 
+        $model->caption = $caption;
+        $model->parent_id = $parent_id;
+        $model->text = $text;
+
         try{
-
-            if ($model->caption === $caption){ throw new Exception();}
-            $model->caption = $caption;
-            $model->parent_id = $parent_id;
-            $model->text = $text;
-
             $model->save();
             return true;
         }catch (\Exception $e){

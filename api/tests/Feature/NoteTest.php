@@ -13,7 +13,7 @@ class NoteTest extends TestCase
 //        $id = 1;
 //        $response = $this->post('/api/auth/note/'.$id,
 //            [
-//                'caption' => 'test_2',
+//                'caption' => 'test_1',
 //                'text' => '12-50-12-11-2018'
 //            ]);
 //        //var_dump($response->content());
@@ -34,7 +34,7 @@ class NoteTest extends TestCase
 //
 //    public function test_Create_WrongId_Error()
 //    {
-//        $id = 'wrong';
+//        $id = 'WRONG_ID';
 //        $response = $this->post('/api/auth/note/'.$id,
 //            [
 //                'caption' => 'test1',
@@ -50,8 +50,8 @@ class NoteTest extends TestCase
 //        $id = $note -> id;
 //        $response = $this->put('/api/auth/note/'.$id,
 //            [
-//                'caption' => 'Upd_2',
-//                'text' => 'Text upd_2'
+//                'caption' => 'Upd_1',
+//                'text' => 'Text upd_1'
 //            ]);
 //        //var_dump($response->Content());
 //        $this->assertEquals(200, $response->status());
@@ -72,7 +72,7 @@ class NoteTest extends TestCase
 //
 //    public function test_Update_WrongId_Error()
 //    {
-//        $id = 'wrong';
+//        $id = 'WRONG_ID';
 //        $response = $this->put('/api/auth/note/'.$id,
 //            [
 //                'caption' => 'Upd_2',
@@ -96,7 +96,7 @@ class NoteTest extends TestCase
 //
 //    public function test_Get_WrongId_Error(){
 //
-//        $id = 'wrong';
+//        $id = 'WRONG_ID';
 //        $response = $this->get('/api/auth/note/'.$id,
 //            [
 //
@@ -117,20 +117,13 @@ class NoteTest extends TestCase
 //
 //    public function test_Delete_WrongId_Error()
 //    {
-//        $id = 'wrong';
+//        $id = 'WRONG_ID';
 //        $response = $this->delete('/api/auth/note/'.$id);
 //
 //       // var_dump($response->getContent());
 //        $this->assertEquals(500, $response->status());
 //    }
-//
-//    public function testTruncated()
-//    {
-//        $response = $this->delete('/api/auth/note');
-//
-//        //var_dump($response->getContent());
-//        $this->assertEquals(200, $response->status());
-//    }
+
 }
 
 //FOR STARTING TESTS USE --- vendor/bin/phpunit !!!

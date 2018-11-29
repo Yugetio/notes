@@ -55,7 +55,7 @@ class UserController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  Request $request
-     * @return MyAbstractClass|JsonResponse $jsonWithHeaders;
+     * @return Controller|JsonResponse $jsonWithHeaders;
      */
     protected function createUser(Request $request)
     {
