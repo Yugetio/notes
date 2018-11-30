@@ -87,6 +87,7 @@ class UserController extends Controller
 
     public function updateUser(Request $request)
     {
+        var_dump($request) ;
         $validator = $this->validator($request);
         try {
             if ($validator->fails()) {
@@ -139,7 +140,8 @@ class UserController extends Controller
     public function truncated(){
 
         try {
-            $user = MyUser::orderBy('created_at', 'desc')->first();
+            echo "_______________________________________________--";
+            $user = MyUser::all();
 
             $user->delete();
 
