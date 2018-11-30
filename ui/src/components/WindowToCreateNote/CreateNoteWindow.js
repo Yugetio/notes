@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './cteateNoteWindow.css';
-import {closeWindow} from '../../actions'
+import {closeWindow, receiveCaptionNote} from '../../actions/CreateBarActions'
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 
@@ -9,9 +9,9 @@ class CreateNoteWindow extends Component {
     createNoteQuery() {
 
         let dataNote = {
-            caption: this.props.caption.current.value,
+            caption: this.props.caption,
             text: this.props.text.current.value,
-            parent_id_note: this.props.parent_id_note
+            parent_id: this.props.parent_id
         };
 
 
@@ -21,7 +21,7 @@ class CreateNoteWindow extends Component {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": localStorage.getItem('Authorization')
             },
-            body: JSON.stringify(dataNote, ['caption', 'text', 'parent_id_note']),
+            body: JSON.stringify(dataNote, ['caption', 'text', 'parent_id']),
         })
             .then( response => {
                 if (response.status === 200 || response.status === 201) {
@@ -32,11 +32,11 @@ class CreateNoteWindow extends Component {
             })
 
             .catch( error => console.error(error) );
-        console.log(dataNote, ['caption', 'text', 'parent_id_note'])
+        console.log(dataNote, ['caption', 'text', 'parent_id'])
     };
 
     render() {
-        const {closeWindow} = this.props;
+        const {closeWindow, receiveCaptionNote} = this.props;
         let isNoteWindow;
         if (this.props.windowForCreating === 0 || this.props.windowForCreating === 1 ) {
             isNoteWindow = null;
@@ -53,7 +53,7 @@ class CreateNoteWindow extends Component {
                                 className="inputStyle"
                                 type="text"
                                 placeholder="Enter title"
-                                ref={this.props.caption}
+                                onChange={receiveCaptionNote}
                             />
                         </div>
                         <div className="inputText">
@@ -83,14 +83,14 @@ const putStateToProps = (state) => {
         windowForCreating: state.window.windowForCreating,
         caption: state.window.caption,
         text: state.window.text,
-        parent_id_note: state.window.parent_id_note
-
+        parent_id: state.window.parent_id
     }
 };
 
 const putActionsToProps = (dispatch) => {
     return{
-        closeWindow: bindActionCreators(closeWindow, dispatch)
+        closeWindow: bindActionCreators(closeWindow, dispatch),
+        receiveCaptionNote: bindActionCreators(receiveCaptionNote, dispatch)
     }
 };
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './createNote.css';
 import {bindActionCreators} from "redux";
-import {openWindowToCreate} from "../../actions";
+import {openWindowToCreate} from "../../actions/CreateBarActions";
 import connect from "react-redux/es/connect/connect";
 
 class CreateNoteButton extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './createFolder.css';
-import {openWindowToCreate} from '../../actions/index'
+import {openWindowToCreate} from '../../actions/CreateBarActions'
 import {bindActionCreators} from "redux";
 import connect from "react-redux/es/connect/connect";
 

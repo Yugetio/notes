@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import '../WindowToCreateNote/cteateNoteWindow.css';
 import {connect} from 'react-redux';
-import {closeWindow} from '../../actions'
+import {closeWindow, receiveNameFolder} from '../../actions/CreateBarActions'
 import {bindActionCreators} from 'redux';
 
 class CreateFolderWindow extends Component {
 
     createFolderQuery() {
         let dataFolder = {
-            title: this.props.title.current.value,
-            parent_id_folder: this.props.parent_id_folder
+            title: this.props.title,
+            parent_id: this.props.parent_id
         };
 
         fetch(this.props.url, {
@@ -18,7 +18,7 @@ class CreateFolderWindow extends Component {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": localStorage.getItem('Authorization')
             },
-            body: JSON.stringify(dataFolder, ['title', 'parent_id_folder']),
+            body: JSON.stringify(dataFolder, ['title', 'parent_id']),
         })
             .then( response => {
                 if (response.status === 200 || response.status === 201) {
@@ -26,13 +26,13 @@ class CreateFolderWindow extends Component {
                     return response.json();
                 }
             })
-
+            .then( (data) => console.log(data))
             .catch( error => console.error(error) );
-            console.log(JSON.stringify(dataFolder, ['title', 'parent_id_folder']))
+            console.log(dataFolder, ['title', 'parent_id'])
     };
 
     render() {
-        const {closeWindow} = this.props;
+        const {closeWindow, receiveNameFolder} = this.props;
         let isFolderWindow;
         if (this.props.windowForCreating === 0 || this.props.windowForCreating === 2) {
             isFolderWindow = null;
@@ -53,7 +53,7 @@ class CreateFolderWindow extends Component {
                                 className="inputStyle"
                                 type="text"
                                 placeholder="Enter folder name"
-                                ref={this.props.title}
+                                onChange={receiveNameFolder}
                             />
                         </div>
                     </div>
@@ -64,27 +64,25 @@ class CreateFolderWindow extends Component {
                 </div>
 
         }
-
         return isFolderWindow;
-
     };
 }
 
-const putStateToProps = (state) => {  //  метод який записує данні з state в props компонента
-console.log(state);
+const putStateToProps = (state) => {
     return {
         httpMethod: state.window.httpMethod,
         url: state.window.url,
         windowForCreating: state.window.windowForCreating,
         title: state.window.title,
-        parent_id_folder: state.window.parent_id_folder,
+        parent_id: state.window.parent_id,
         input: state.window.input
     }
 };
 
 const putActionsToProps = (dispatch) => {
     return{
-        closeWindow: bindActionCreators(closeWindow, dispatch)
+        closeWindow: bindActionCreators(closeWindow, dispatch),
+        receiveNameFolder: bindActionCreators(receiveNameFolder, dispatch)
     }
 };
 
