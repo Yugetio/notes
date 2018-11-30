@@ -7,13 +7,21 @@ import {bindActionCreators} from "redux";
 class CreateNoteWindow extends Component {
 
     createNoteQuery() {
-        fetch(this.state.url, {
-            method: this.state.httpMethod,
+
+        let dataNote = {
+            caption: this.props.caption.current.value,
+            text: this.props.text.current.value,
+            parent_id_note: this.props.parent_id_note
+        };
+
+
+        fetch(this.props.url, {
+            method: this.props.httpMethod,
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": localStorage.getItem('Authorization')
             },
-            body: JSON.stringify(this.state.dataFolder),
+            body: JSON.stringify(dataNote, ['caption', 'text', 'parent_id_note']),
         })
             .then( response => {
                 if (response.status === 200 || response.status === 201) {
@@ -24,7 +32,7 @@ class CreateNoteWindow extends Component {
             })
 
             .catch( error => console.error(error) );
-        console.log(JSON.stringify(this.state.dataFolder))
+        console.log(dataNote, ['caption', 'text', 'parent_id_note'])
     };
 
     render() {
@@ -45,14 +53,14 @@ class CreateNoteWindow extends Component {
                                 className="inputStyle"
                                 type="text"
                                 placeholder="Enter title"
-                                onChange={this.handleChange}
+                                ref={this.props.caption}
                             />
                         </div>
                         <div className="inputText">
                             <textarea
                                 className="inputStyle"
                                 placeholder="Enter your note"
-                                onChange={this.handleChangeNote}
+                                ref={this.props.text}
                             >
                             </textarea>
                         </div>
@@ -72,8 +80,11 @@ const putStateToProps = (state) => {
     return {
         httpMethod: state.window.httpMethod,
         url: state.window.url,
-        title: state.window.dataFolder.title,
-        windowForCreating: state.window.windowForCreating
+        windowForCreating: state.window.windowForCreating,
+        caption: state.window.caption,
+        text: state.window.text,
+        parent_id_note: state.window.parent_id_note
+
     }
 };
 
