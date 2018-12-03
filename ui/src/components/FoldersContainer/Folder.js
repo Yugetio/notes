@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BackButton from '../BackButton/BackButton';
 import CreateBar from '../CreateBar/CreateBar';
+import CreateFolderWindow from '../WindowToCreateFolder/CreateFolderWindow';
+import CreateNoteWindow from '../WindowToCreateNote/CreateNoteWindow';
 
 import './folder.css';
 
@@ -10,7 +12,8 @@ class Folder extends Component {
         super(props);
 
         this.state = {
-            folderId: 1,
+            folderId: 0,
+            CreateFolderOrNote: 0,
             data:{
                 folders: [
                     'my folder',
@@ -29,6 +32,7 @@ class Folder extends Component {
 
         };
     }
+
     render() {
         let filteredFolders = this.state.data.folders.filter(
             (folder) => {
@@ -40,10 +44,13 @@ class Folder extends Component {
                 return note.toLowerCase().indexOf(
                     this.props.searchRequest.toLowerCase()) !== -1;
             });
+
         return (
             <div className='wrapp'>
+
                 <div className='cont'>
                     <BackButton folderId={this.state.folderId}/>
+
                     <div className='contForItems'>
                         {
                                 filteredFolders.map((folder) => {
@@ -57,13 +64,15 @@ class Folder extends Component {
                         {
                             filteredNotes.map( (note) => {
                                 return (
-                                    <Link className='link' to='/note/id' key={note}>
+                                    <Link className='link' to='/note/{id}' key={note}>
                                         <div className='note'>{note} </div>
                                     </Link>
                                 )
                             })
                         }
                         </div>
+                    <CreateFolderWindow/>
+                    <CreateNoteWindow/>
                     <CreateBar/>
                 </div>
 

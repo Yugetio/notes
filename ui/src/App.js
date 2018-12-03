@@ -51,7 +51,7 @@ class App extends Component {
                         <Route exact path="/" render={() => App.isLoggedIn() ? <Redirect to='/user'/> : <Login/> }/>
                         <Route path="/register" render={() => App.isLoggedIn() ? <Redirect to='/user'/> : <Register/>} />
                         <Route path="/folder" render={(props) => App.isLoggedIn() ? <Folder searchRequest={this.state.searchRequest} {...props}/> : <Redirect to='/'/>} />
-                        <Route path="/note/id" component={SameNote} />
+                        <Route path="/note/:id" component={SameNote} />
                         <Route exact path="/user" render={() => App.isLoggedIn() ? <Profile/> : <Redirect to='/'/>} />
                     </div>
 
