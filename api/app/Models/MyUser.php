@@ -19,6 +19,39 @@ class MyUser extends Authenticatable implements JWTSubject
         'password','remember_token',
     ];
 
+    public function setData($email,$password){
+
+        $model = new MyUser();
+
+        $model->email = $email;
+        $model->password = $password;
+        try{
+            $model->save();
+            return true;
+        }catch (\Exception $e){
+            return false;
+        }
+    }
+
+    public function loadData($email){
+
+        $model = MyUser::where('email', '=', $email)->get();
+
+        if (strlen((string)$model) > 2){return true ;}else{ return false; }
+    }
+
+    public function deleteData(){
+
+        $model = MyUser::orderBy('id', 'desc')->first();
+
+        try{
+            $model->delete();
+            return true;
+        }catch (\Exception $e){
+            return false;
+        }
+    }
+
     public function token()
     {
         return $this->hasOne('App\Models\Token', 'user_id');

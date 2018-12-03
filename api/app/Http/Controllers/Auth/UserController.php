@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Http\Controllers\MyAbstractClass;
 use Illuminate\Http\JsonResponse;
 use JWTAuth;
 
@@ -56,7 +55,7 @@ class UserController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  Request $request
-     * @return MyAbstractClass|JsonResponse $jsonWithHeaders;
+     * @return Controller|JsonResponse $jsonWithHeaders;
      */
     protected function createUser(Request $request)
     {
@@ -78,16 +77,17 @@ class UserController extends Controller
                 'refresh_token' => 'Bearer ' .JWTAuth::fromUser($user),
                 'expires_in' => auth()->payload()->get('exp')
             ]);
-            $jsonWithHeaders = new MyAbstractClass();
+            $jsonWithHeaders = new Controller();
             return $jsonWithHeaders -> SendJsonWithHeaders('User has created', 201, $databaseToken);
         } catch (\Exception $e) {
-            $senderError = new MyAbstractClass();
+            $senderError = new Controller();
             return $senderError->SendError($e);
         }
     }
 
     public function updateUser(Request $request)
     {
+        var_dump($request) ;
         $validator = $this->validator($request);
         try {
             if ($validator->fails()) {
@@ -101,11 +101,24 @@ class UserController extends Controller
             $user->save();
             return new JsonResponse(['message' => 'User has already updated'], 200);
         } catch (\Exception $e) {
-            $senderError = new MyAbstractClass();
+            $senderError = new Controller();
             return $senderError->SendError($e);
         }
     }
+    public function get($id){
 
+        try{
+            $user = MyUser::find($id);
+
+            return new JsonResponse([
+                'message'=>'Folder has been sent',
+
+            ], 200);
+
+        }catch (\Exception $e) {
+            return  $this->SendError($e);
+        }
+    }
     /**
      * @return JsonResponse
      */
@@ -119,8 +132,22 @@ class UserController extends Controller
             MyUser::find(auth()->user()->id)->delete();
             return new JsonResponse(['message'=>'User has deleted'], 200);
         } catch (\Exception $e) {
-            $senderError = new MyAbstractClass();
+            $senderError = new Controller();
             return $senderError->SendError($e);
+        }
+    }
+
+    public function truncated(){
+
+        try {
+            echo "_______________________________________________--";
+            $user = MyUser::all();
+
+            $user->delete();
+
+            return new JsonResponse(['message'=>'Folder has been truncated'], 200);
+        } catch (\Exception $e) {
+            return  $this->SendError($e);
         }
     }
 }

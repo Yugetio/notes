@@ -3,60 +3,142 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\MyUser;
 
 class UserTest extends TestCase
 {
 
-//    public function testCreate()
+//    public function test_Create_Successful()
 //    {
 //        $response = $this->post('/api/user',
 //            [
-//                'email' => 'tdasdasest@mail.com',
-//                'password' => '1afsa111'
+//                'email' => 'test_1_@mail.com',
+//                'password' => '111password'
 //            ]);
-//        var_dump($response->getContent());
-//        $this->assertEquals(201, $response->status());
 //
+//        $this->assertEquals(201, $response->status());
 //    }
 
-//    public function testLogin()
+//    public function test_Create_EmptyEmail_Error()
 //    {
-//        $response = $this->post('/api/login',
+//        $response = $this->post('/api/user',
 //            [
-//                'email' => 'test@mail.com',
-//                'password' => '111111'
+//                'email' => '',
+//                'password' => '111password'
 //            ]);
-//        var_dump($response->getContent());
-//        $this->assertEquals(200, $response->status());
+//
+//        $this->assertEquals(400, $response->status());
 //    }
-
-//    public function testMe()
+//
+//    public function test_Create_EmptyPassword_Error()
 //    {
-//        $token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvbG9naW4iLCJpYXQiOjE1MzgzOTQ5NDEsImV4cCI6MTUzODM5ODU0MSwibmJmIjoxNTM4Mzk0OTQxLCJqdGkiOiIyM0RtdnZuWjVYdmJjRFM3Iiwic3ViIjoyMSwicHJ2IjoiN2JiMmUwNTYyYTM3NTc0ZWNiOGNmYTE1ZjgyMTkxNjBjNWZjNTFlMCJ9.SfxxmrddQgac7nFtv_YTifmFeFnDIIuOShJKZUeiaD4';
-//        $response = $this->withHeaders([
-//            'Content-Type' => $this->contentType,
-//            'Accept' => $this->accept,
-//            'Authorization' => $token,
-//        ])->post('/api/auth/me');
-//        var_dump($response->getContent());
-//        $this->assertEquals(200, $response->status());
-//    }
-
-//    public function testUpdate()
-//    {
-//        $response = $this->put('/api/auth/user',
+//        $response = $this->post('/api/user',
 //            [
+//                'email' => 'test1_1@mail.com',
+//                'password' => ''
 //            ]);
-//        var_dump($response->getContent());
-//        $this->assertEquals(200, $response->status());
+//
+//        $this->assertEquals(400, $response->status());
+//    }
+//
+//    public function test_Create_EmailExist_Error()
+//    {
+//        $response = $this->post('/api/user',
+//            [
+//                'email' => 'test_1_@mail.com',
+//                'password' => '111asdgasdgfds'
+//            ]);
+//
+//        $this->assertEquals(400, $response->status());
 //    }
 
-//    public function testDelete()
+    public function test_Update_Successful()
+    {
+        $user = MyUser::orderBy('created_at', 'desc')->first();
+        $id = $user -> id;
+        $response = $this->put('/api/auth/user'.$id,
+            [
+                'email' => 'upd_1_@mail.com',
+                'password' => 'upd_1_password'
+            ]);
+
+        $this->assertEquals(200, $response->status());
+    }
+//
+//    public function test_Update_WrongEmail_Error()
 //    {
-//        $response = $this->delete('/api/user/2');
-//        var_dump($response->getContent());
+//        $user = MyUser::orderBy('created_at', 'desc')->first();
+//        $id = $user -> id;
+//
+//        $response = $this->put('/api/auth/user'.$id,
+//            [
+//                'email' => 'WRONG',
+//                'password' => 'upd_1_@mail.com'
+//            ]);
+//
+//        $this->assertEquals(500, $response->status());
+//    }
+//
+//    public function test_Update_WrongId_Error()
+//    {
+//        $id = 'wrong';
+//        $response = $this->put('/api/auth/user'.$id,
+//            [
+//                'email' => 'upd_1_@mail.com',
+//                'password' => 'WRON'
+//            ]);
+//
+//        $this->assertEquals(500, $response->status());
+//    }
+//
+//    public function test_Get_Successful(){
+//
+//        $user = MyUser::orderBy('created_at', 'desc')->first();
+//        $id = $user -> id;
+//        $response = $this->get('/api/user'.$id,
+//            [
+//                'email' => 'test1@mail.com',
+//                'password' => '111password'
+//            ]);
+//
+//        $this->assertEquals(500, $response->status());
+//    }
+//
+//    public function test_Get_WrongId_Error(){
+//
+//        $id = '';
+//        $response = $this->get('/api/user'.$id,
+//            [
+//
+//            ]);
+//
+//        $this->assertEquals(500, $response->status());
+//    }
+//    public function test_Delete_Successful()
+//    {
+//        $user = MyUser::orderBy('created_at', 'desc')->first();
+//        $id = $user -> id;
+//        $response = $this->delete('/api/user/'.$id);
+//
 //        $this->assertEquals(200, $response->status());
+//    }
+//
+//    public function test_Delete_WrongId_Error()
+//    {
+//        $id = 'wrong';
+//        $response = $this->delete('/api/user/'.$id);
+//
+//        $this->assertEquals(500, $response->status());
+//    }
+
+//    public function truncated(){
+//        echo "_______________________________________________--";
+//        $response = $this->delete('/api/usr');
+//
+//        $this->assertEquals(201, $response->status());
 //    }
 }
+
+
 
 //FOR STARTING TESTS USE --- vendor/bin/phpunit !!!

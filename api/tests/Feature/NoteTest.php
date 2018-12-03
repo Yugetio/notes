@@ -3,35 +3,90 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-
+use App\Models\Note;
 
 
 class NoteTest extends TestCase
 {
-//    public function testCreate()
+//    public function test_Create_Successful()
 //    {
-//        $response = $this->post('/api/auth/note/1',
+//        $id = 1;
+//        $response = $this->post('/api/auth/note/'.$id,
+//            [
+//                'caption' => 'test_1',
+//                'text' => '12-50-12-11-2018'
+//            ]);
+//        //var_dump($response->content());
+//        $this->assertEquals(201, $response->status());
+//    }
+//
+//    public function test_Create_EmptyCaption_Error()
+//    {
+//        $id = 1;
+//        $response = $this->post('/api/auth/note/'.$id,
+//            [
+//                'caption' => '',
+//                'text' => '12-50-12-11-2018'
+//            ]);
+//        //var_dump($response->content());
+//        $this->assertEquals(500, $response->status());
+//    }
+//
+//    public function test_Create_WrongId_Error()
+//    {
+//        $id = 'WRONG_ID';
+//        $response = $this->post('/api/auth/note/'.$id,
 //            [
 //                'caption' => 'test1',
 //                'text' => '12-50-12-11-2018'
 //            ]);
-//        var_dump($response->content());
-//        $this->assertEquals(201, $response->status());
+//        //var_dump($response->content());
+//        $this->assertEquals(500, $response->status());
 //    }
 //
-//    public function testUpdate()
+//    public function test_Update_Successful()
 //    {
-//        $response = $this->put('/api/auth/note/5be2f9725fe29800882a00d2',
+//        $note = Note::orderBy('created_at', 'desc')->first();
+//        $id = $note -> id;
+//        $response = $this->put('/api/auth/note/'.$id,
+//            [
+//                'caption' => 'Upd_1',
+//                'text' => 'Text upd_1'
+//            ]);
+//        //var_dump($response->Content());
+//        $this->assertEquals(200, $response->status());
+//    }
+//
+//    public function test_Update_EmptyCaption_Error()
+//    {
+//        $note = Note::orderBy('created_at', 'desc')->first();
+//        $id = $note -> id;
+//        $response = $this->put('/api/auth/note/'.$id,
+//            [
+//                'caption' => '',
+//                'text' => 'Text upd_2'
+//            ]);
+//        //var_dump($response->Content());
+//        $this->assertEquals(500, $response->status());
+//    }
+//
+//    public function test_Update_WrongId_Error()
+//    {
+//        $id = 'WRONG_ID';
+//        $response = $this->put('/api/auth/note/'.$id,
 //            [
 //                'caption' => 'Upd_2',
 //                'text' => 'Text upd_2'
 //            ]);
-//        var_dump($response->Content());
-//        $this->assertEquals(200, $response->status());
+//        //var_dump($response->Content());
+//        $this->assertEquals(500, $response->status());
 //    }
 //
-//    public function testGet(){
-//        $response = $this->get('/api/auth/note/5be2f9725fe29800882a00d2',
+//    public function test_Get_Successful(){
+//
+//        $note = Note::orderBy('created_at', 'desc')->first();
+//        $id = $note -> id;
+//        $response = $this->get('/api/auth/note/'.$id,
 //            [
 //
 //            ]);
@@ -39,12 +94,36 @@ class NoteTest extends TestCase
 //        $this->assertEquals(200, $response->status());
 //    }
 //
-//    public function testDelete()
+//    public function test_Get_WrongId_Error(){
+//
+//        $id = 'WRONG_ID';
+//        $response = $this->get('/api/auth/note/'.$id,
+//            [
+//
+//            ]);
+//        //var_dump($response->getContent());
+//        $this->assertEquals(500, $response->status());
+//    }
+//
+//    public function test_Delete_Successful()
 //    {
-//        $response = $this->delete('/api/auth/note/5be2f9725fe29800882a00d2');
-//        var_dump($response->getContent());
+//        $note = Note::orderBy('created_at', 'desc')->first();
+//        $id = $note -> id;
+//        $response = $this->delete('/api/auth/note/'.$id);
+//
+//        //var_dump($response->getContent());
 //        $this->assertEquals(200, $response->status());
 //    }
+//
+//    public function test_Delete_WrongId_Error()
+//    {
+//        $id = 'WRONG_ID';
+//        $response = $this->delete('/api/auth/note/'.$id);
+//
+//       // var_dump($response->getContent());
+//        $this->assertEquals(500, $response->status());
+//    }
+
 }
 
 //FOR STARTING TESTS USE --- vendor/bin/phpunit !!!
